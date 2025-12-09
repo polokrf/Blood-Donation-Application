@@ -1,21 +1,35 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
+import useAuth from '../../Hook/useAuth';
+import { toast } from 'react-toastify';
+import { useLocation } from 'react-router';
 
 const Login = () => {
 
   const [icon, setIcon] = useState(false);
+  const { login } = useAuth()
+  const location = useLocation()
+  const navigate = useNavigate() 
+  console.log(location)
 
   const {
     register,
     handleSubmit,
-    watch,
+    
     formState: { errors },
+
   } = useForm();
 
   const handlelLogin = (data) => {
-    console.log(data)
+    login(data.email, data.password).then(res => {
+      toast.success('successful');
+      navigate(location.state || '/')
+
+    }).catch(err => {
+      toast.error(err.message)
+    })
   }
 
   return (
@@ -62,7 +76,7 @@ const Login = () => {
           </form>
           <p>
             Do not have an account{' '}
-            <Link className="text-blue-600 font-bold underline" to="/register">
+            <Link state={location.state} className="text-blue-600 font-bold underline" to="/register">
               Register
             </Link>
           </p>

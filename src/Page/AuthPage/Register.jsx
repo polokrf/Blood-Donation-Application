@@ -1,14 +1,22 @@
 import React, { use, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
-import { Link, useLoaderData } from 'react-router';
+import { Link, useLoaderData, useLocation, useNavigate } from 'react-router';
+import useAuth from '../../Hook/useAuth';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 const upazailaData = fetch('/upazaila.json').then(res => res.json())
 const Register = () => {
     const [icon,setIcon]=useState(false)
   const [icon2, setIcon2] = useState(false);
+  const { registerUser, updateUser } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate(); 
+  
 
   const districtData = useLoaderData();
   const upazailacovert = use(upazailaData);
+
  
   const {
     register,
@@ -22,10 +30,66 @@ const Register = () => {
   const singleDistrict = districtData.find(dis => dis.name === district);
   
   const filterUpazaila = upazailacovert.filter(up => up.district_id === singleDistrict?.id);
-  console.log(filterUpazaila)
+  
 
   const handelForm = (data) => {
-    console.log(data)
+
+    if (data.password !== data.confirm_pas) {
+      return toast.error('Do not match password')
+    }
+    
+    const photo = data.photo[0]
+    registerUser(data.email, data.password)
+      .then(res => {
+        
+        const formdata = new FormData();
+        formdata.append('image', photo);
+        const phot_url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_imag_key}`;
+
+        axios.post(phot_url, formdata).then(res => {
+          
+
+          const userInfo = {
+            name: data.name,
+            email: data.email,
+            photo: res.data.data.url,
+            district: data.district,
+            upazaila: data.upazaila,
+            blood_group: data.blood_group,
+          };
+
+          axios.post('http://localhost:3000/user', userInfo)
+            .then(res => {
+              console.log(res);
+            })
+            .catch(err => {
+              console.log(err);
+            });
+          
+          const personInfo = {
+            displayName: data.name,
+            photoURL: res.data.data.url,
+          };
+          updateUser(personInfo)
+            .then(res => {
+              console.log(res);
+             navigate(location.state || '/');
+            })
+            .catch(error => {
+              toast.error(error.message);
+            });
+
+
+          
+          
+         
+        }).catch(err => {
+          console.log(err)
+        })
+        
+       toast.success('successful');
+    }).catch(err => toast.error(err.message))
+
   }
  return (
    <div>
@@ -72,27 +136,24 @@ const Register = () => {
                className="select"
              >
                <option disabled={true}>select group</option>
-               <option>A+</option>
-               <option>A-</option>
-               <option>B+</option>
-               <option>B-</option>
-               <option>AB+</option>
-               <option>AB-</option>
-               <option>O+</option>
-               <option>O-</option>
+               <option value={'A+'}>A+</option>
+               <option value={'A-'}>A-</option>
+               <option value={'B+'}>B+</option>
+               <option value={'B-'}>B-</option>
+               <option value={'AB+'}>AB+</option>
+               <option value={'AB-'}>AB-</option>
+               <option value={'O+'}>O+</option>
+               <option value={'O-'}>O-</option>
              </select>
              {/*district */}
              <label className="label">District </label>
              <select
-               
                {...register('district', { required: true })}
                className="select"
              >
-               <option selected disabled>
-                 select district
-               </option>
+             
                {districtData.map(d => (
-                 <option key={d.id}>{d?.name}</option>
+                 <option key={d.id} value={d.name}>{d?.name}</option>
                ))}
              </select>
              {/* upazila  */}
@@ -101,11 +162,9 @@ const Register = () => {
                {...register('upazaila', { required: true })}
                className="select"
              >
-               <option selected disabled>
-                 select upazaila
-               </option>
+               
                {filterUpazaila.map(upa => (
-                 <option key={upa.id}>{upa?.name}</option>
+                 <option key={upa.id} value={upa.name}>{upa?.name}</option>
                ))}
              </select>
              {/* password */}
@@ -132,7 +191,7 @@ const Register = () => {
                <input
                  type={icon2 ? 'text' : 'password'}
                  className="input"
-                 {...register('confirm-pas', { required: true })}
+                 {...register('confirm_pas', { required: true })}
                  placeholder="Password"
                />
 
@@ -150,7 +209,7 @@ const Register = () => {
          </form>
          <p>
            already have an account{' '}
-           <Link className="text-blue-600 font-bold underline" to="/login">
+           <Link state={location.state} className="text-blue-600 font-bold underline" to="/login">
              Login
            </Link>
          </p>
