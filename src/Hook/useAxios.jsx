@@ -13,7 +13,7 @@ const useAxios = () => {
   useEffect(() => {
    const chakUSerInfo = instance.interceptors.request.use(config => {
       if (user) {
-        config.headers.Authorization = `bearer ${user?.accessToken}`;
+        config.headers.Authorization =`Bearer ${user?.accessToken}`;
     }
       return config
    })
@@ -22,7 +22,7 @@ const useAxios = () => {
       return res
     }, error => {
 
-      const errorStatus = error.status;
+      const errorStatus = error.response.status;
       if (errorStatus === 401 && errorStatus === 403) {
         return logOut().then(res => {
           

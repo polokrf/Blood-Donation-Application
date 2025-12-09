@@ -6,6 +6,9 @@ import Register from "../Page/AuthPage/Register";
 import PrivetRouters from "../PrivetRoutrs/PrivetRouters";
 import Dashboard from "../Page/Dashborad/Dashboard";
 import MyProfile from "../Page/Dashborad/MyProfile";
+import CreateDonation from "../Page/Dashborad/CreateDonation";
+import MyDonationRequests from "../Page/Dashborad/MyDonationRequests";
+import EditPage from "../Page/Dashborad/EditPage";
 
 export const router = createBrowserRouter([
   {
@@ -40,10 +43,37 @@ export const router = createBrowserRouter([
     children: [
       {
         path: 'profile',
+        element: (
+          <PrivetRouters>
+            <MyProfile></MyProfile>
+          </PrivetRouters>
+        ),
+      },
+      {
+        path: 'create-donation-request',
+        element: (
+          <PrivetRouters>
+            <CreateDonation></CreateDonation>
+          </PrivetRouters>
+        ),
+        loader: () => fetch('/district.json'),
+      },
+      {
+        path: 'my-donation-requests',
+        element: (
+          <PrivetRouters>
+           <MyDonationRequests></MyDonationRequests>
+          </PrivetRouters>
+        ),
+       
+      },
+      {
+        path: 'edit/:id',
         element: <PrivetRouters>
-          <MyProfile></MyProfile>
-        </PrivetRouters>
-    }
+          <EditPage></EditPage>
+        </PrivetRouters>,
+        loader: () => fetch('/district.json'),
+      }
     ],
   },
 ]);

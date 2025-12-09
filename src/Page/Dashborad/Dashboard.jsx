@@ -1,5 +1,7 @@
 import React from 'react';
 import { FaUserCog } from 'react-icons/fa';
+import { IoCreateOutline } from 'react-icons/io5';
+import { VscGitPullRequestGoToChanges } from 'react-icons/vsc';
 import { Link, Outlet } from 'react-router';
 
 const Dashboard = () => {
@@ -53,7 +55,7 @@ const Dashboard = () => {
                 <Link
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   data-tip="Homepage"
-                  to='/'
+                  to="/"
                 >
                   {/* Home icon */}
                   <svg
@@ -69,16 +71,46 @@ const Dashboard = () => {
                     <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
                     <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                   </svg>
+                  <span className="is-drawer-close:hidden">Home</span>
                 </Link>
               </li>
 
               {/* myProfile rout */}
 
               <li>
-                
-                <Link className="is-drawer-close:tooltip is-drawer-close:tooltip-right" to='/dashboard/profile'>
+                <Link
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  to="/dashboard/profile"
+                >
                   <FaUserCog />
                   <span className="is-drawer-close:hidden">MyProfile</span>
+                </Link>
+              </li>
+              {/* Create-Donation-Request rout */}
+
+              <li>
+                <Link
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  to="/dashboard/create-donation-request"
+                >
+                  <IoCreateOutline />
+                  <span className="is-drawer-close:hidden">
+                    Create-Donation-Request
+                  </span>
+                </Link>
+              </li>
+
+              {/* My-Donation-Request rout */}
+
+              <li>
+                <Link
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  to="/dashboard/my-donation-requests"
+                >
+                  <VscGitPullRequestGoToChanges />
+                  <span className="is-drawer-close:hidden">
+                    MyDonationRequests
+                  </span>
                 </Link>
               </li>
 

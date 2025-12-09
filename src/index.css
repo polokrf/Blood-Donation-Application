@@ -8,3 +8,10 @@
 *{
    font-family: "Montserrat", sans-serif;
 }
+
+.formFil{
+   @apply grid grid-cols-1 md:grid-cols-2 gap-4 justify-between items-center  
+}
+.inputW{
+   @apply  w-full 
+}
