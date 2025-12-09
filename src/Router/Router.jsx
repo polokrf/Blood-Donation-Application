@@ -9,6 +9,11 @@ import MyProfile from "../Page/Dashborad/MyProfile";
 import CreateDonation from "../Page/Dashborad/CreateDonation";
 import MyDonationRequests from "../Page/Dashborad/MyDonationRequests";
 import EditPage from "../Page/Dashborad/EditPage";
+import ViewPage from "../Page/Dashborad/ViewPage";
+import AllUsers from "../Page/Dashborad/Admin/AllUsers";
+import AllBloodDonation from "../Page/Dashborad/Admin/AllBloodDonation";
+import AdminPrivetRouter from "../PrivetRoutrs/AdminPrivet/AdminPrivetRouter";
+import VolunteerAdminPrivet from "../PrivetRoutrs/AdminPrivet/VolunteerAdminPrivet";
 
 export const router = createBrowserRouter([
   {
@@ -62,18 +67,48 @@ export const router = createBrowserRouter([
         path: 'my-donation-requests',
         element: (
           <PrivetRouters>
-           <MyDonationRequests></MyDonationRequests>
+            <MyDonationRequests></MyDonationRequests>
           </PrivetRouters>
         ),
-       
       },
       {
         path: 'edit/:id',
-        element: <PrivetRouters>
-          <EditPage></EditPage>
-        </PrivetRouters>,
+        element: (
+          <PrivetRouters>
+            <EditPage></EditPage>
+          </PrivetRouters>
+        ),
         loader: () => fetch('/district.json'),
-      }
+      },
+      {
+        path: 'view/:id',
+        element: (
+          <PrivetRouters>
+            <ViewPage></ViewPage>
+          </PrivetRouters>
+        ),
+        loader: () => fetch('/district.json'),
+      },
+      {
+        path: 'all-users',
+        element: (
+          <AdminPrivetRouter>
+            <PrivetRouters>
+              <AllUsers></AllUsers>
+            </PrivetRouters>
+          </AdminPrivetRouter>
+        ),
+      },
+      {
+        path: 'all-blood-donation-request',
+        element: (
+          <VolunteerAdminPrivet>
+            <PrivetRouters>
+              <AllBloodDonation></AllBloodDonation>
+            </PrivetRouters>
+          </VolunteerAdminPrivet>
+        ),
+      },
     ],
   },
 ]);

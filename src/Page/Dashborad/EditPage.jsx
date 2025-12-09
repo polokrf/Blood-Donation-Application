@@ -37,11 +37,11 @@ const EditPage = () => {
   const { data:edit=[] } = useQuery({
     queryKey: ['edit', id],
     queryFn: async () => {
-      const res = await instance.get(`/edit/${id}`)
+      const res = await instance.get(`/one-donationInfo/${id}`);
       return res.data
     }
   })
-  
+  console.log(edit)
 
   const handleDonation = (data) => {
     instance.patch(`/update-data/${edit._id}`, data)
@@ -53,10 +53,7 @@ const EditPage = () => {
         } 
          
         
-          
-           
-        
-      })
+    })
       .catch(err => {
         console.log(err);
       });

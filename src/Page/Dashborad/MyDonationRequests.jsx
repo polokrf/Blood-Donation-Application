@@ -4,6 +4,8 @@ import useAuth from '../../Hook/useAuth';
 import useAxios from '../../Hook/useAxios';
 import { HiDotsHorizontal } from 'react-icons/hi';
 import { Link } from 'react-router';
+import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
 
 const MyDonationRequests = () => {
   const { user } = useAuth();
@@ -17,6 +19,38 @@ const MyDonationRequests = () => {
     
   });
   
+  const handleDelete = (donation) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then(result => {
+      if (result.isConfirmed) {
+
+        instance.delete(`/delete-donation/${donation._id}`)
+          .then(res => {
+            
+            Swal.fire({
+              title: 'Deleted!',
+              text: 'Your file has been deleted.',
+              icon: 'success',
+            });
+            refetch();
+            
+          })
+          .catch(err => {
+            console.log(err);
+          });
+        
+      }
+    });
+    
+
+  }
   
 
   return (
@@ -75,14 +109,14 @@ const MyDonationRequests = () => {
                         </Link>
                       </li>
                       <li>
-                        <button className="btn btn-xs mb-3  btn-info text-white">
+                        <button onClick={()=>handleDelete(donation)} className="btn btn-xs mb-3  btn-info text-white">
                           Delete
                         </button>
                       </li>
                       <li>
-                        <button className="btn btn-xs mb-3  btn-info text-white">
+                        <Link className="btn btn-xs mb-3  btn-info text-white" to={`/dashboard/view/${donation._id}`}>
                           View
-                        </button>
+                        </Link>
                       </li>
                       <div>
                         {donation?.status === 'inprogress' && (

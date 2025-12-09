@@ -1,10 +1,15 @@
 import React from 'react';
-import { FaUserCog } from 'react-icons/fa';
+import { FaHandHoldingHeart, FaUserCog } from 'react-icons/fa';
+import { FaUsersLine } from 'react-icons/fa6';
 import { IoCreateOutline } from 'react-icons/io5';
 import { VscGitPullRequestGoToChanges } from 'react-icons/vsc';
 import { Link, Outlet } from 'react-router';
+import useRole from '../../Hook/useRole';
 
 const Dashboard = () => {
+
+  const {role} = useRole();
+  
   return (
     <div>
       <div className="drawer lg:drawer-open">
@@ -114,6 +119,35 @@ const Dashboard = () => {
                 </Link>
               </li>
 
+              {/* Admin panel */}
+              {role === 'Admin' && (
+                <div>
+                  <li>
+                    <Link
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      to="/dashboard/all-users"
+                    >
+                      <FaUsersLine />
+                      <span className="is-drawer-close:hidden">All-Users</span>
+                    </Link>
+                  </li>
+                </div>
+              )}
+
+              {/* all donation request rout */}
+              {(role === 'Admin' || role === 'Volunteer') && (
+                <li>
+                  <Link
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    to="/dashboard/all-blood-donation-request"
+                  >
+                    <FaHandHoldingHeart />
+                    <span className="is-drawer-close:hidden">
+                      All-Donation-Request
+                    </span>
+                  </Link>
+                </li>
+              )}
               {/* List item */}
               <li>
                 <button
