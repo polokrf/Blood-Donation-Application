@@ -34,7 +34,7 @@ const EditPage = () => {
 
   // donation request
 
-  const { data:edit=[] } = useQuery({
+  const { data:edit={} } = useQuery({
     queryKey: ['edit', id],
     queryFn: async () => {
       const res = await instance.get(`/one-donationInfo/${id}`);

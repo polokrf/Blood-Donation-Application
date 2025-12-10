@@ -10,7 +10,13 @@ const Header = () => {
   const navbare = (
     <>
       <li>
-        <Link to='/dashboard'>Dashboard</Link>
+        <Link to="/">Home</Link>
+      </li>
+      <li>
+        <Link to="/blood-donation">Blood-Donation</Link>
+      </li>
+      <li>
+        <Link to="/dashboard">Dashboard</Link>
       </li>
     </>
   );

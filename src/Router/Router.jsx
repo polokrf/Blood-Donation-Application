@@ -18,6 +18,9 @@ import DonorWelcome from "../Page/Dashborad/WelComePage/DonorWelcome";
 import Funding from "../Page/Dashborad/Payment/Funding";
 import PaymentSuccess from "../Page/Dashborad/Payment/PaymentSuccess";
 import PAymentCanceled from "../Page/Dashborad/Payment/PAymentCanceled";
+import SearchPage from "../Page/Home/SearchPage";
+import BloodDonationRequests from "../Page/Home/BloodDonationRequests";
+import DonationDetails from "../Page/Home/DonationDetails ";
 
 
 
@@ -31,6 +34,22 @@ export const router = createBrowserRouter([
       {
         index: true,
         Component: Home,
+      },
+      {
+        path: 'search',
+        Component: SearchPage,
+        loader: () => fetch('/district.json'),
+      },
+      {
+        path: 'blood-donation',
+        Component: BloodDonationRequests,
+        
+      },
+      {
+        path: 'blood-donation-details/:id',
+        element: <PrivetRouters>
+          <DonationDetails></DonationDetails>
+        </PrivetRouters>
       },
       {
         path: 'login',
