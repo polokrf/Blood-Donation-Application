@@ -25,24 +25,35 @@ const SearchPage = () => {
     up => up.district_id === singleDistrict?.id
   );
   
-  const [search, setSearch] = useState({});
+  const [blood, setBlood] = useState();
+  const [districts, setDistricts] = useState();
+  const [upazila, setUpazila] = useState();
+  const [role, setRole] = useState();
 
   const handleSearch = (data) => {
-    setSearch(data)
+    if (data) {
+     setBlood(data.blood_group);
+     setUpazila(data.district);
+     setDistricts(data.upazaila);
+     setRole('Donor');
+   }
     
    
     
   }
  
-  console.log(search)
+ 
 
-  // const { data:searchValue } = useQuery({
-  //   queryKey: ['search-page', search,'Donor'],
-  //   queryFn:async () => {
-  //     const res = await instance.get(``)
-  //     return res.data;
-  //   }
-  // })
+  const { data: searchValue } = useQuery({
+    queryKey: ['search-page', blood, districts, upazila,  role],
+    queryFn: async () => {
+      const res = await instance.get(`/search?blood_group=${blood}&&district=${districts}&&upazaila=${upazila}&&role=${role}`
+      );
+      return res.data;
+    },
+  });
+
+  console.log(searchValue)
   return (
     <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
       <form onSubmit={handleSubmit(handleSearch)} className="card-body">
