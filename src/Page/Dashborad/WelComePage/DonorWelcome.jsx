@@ -5,6 +5,7 @@ import useAxios from '../../../Hook/useAxios';
 import { Link } from 'react-router';
 import { HiDotsHorizontal } from 'react-icons/hi';
 import Swal from 'sweetalert2';
+import { toast } from 'react-toastify';
 
 const DonorWelcome = () => {
   const { user } = useAuth()
@@ -48,7 +49,25 @@ const DonorWelcome = () => {
       });
       
   
+  }
+  const statusUpdate = (id, status) => {
+      instance.patch(`/only-status-update/${id}`, { status })
+        .then(res => {
+          toast.info(`Do you ${status}`)
+          refetch()
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
+  
+  
+   const hnadleStatusDone = id => {
+     statusUpdate(id, 'done');
+   };
+   const hnadleStatusCancel = id => {
+     statusUpdate(id, 'canceled');
+   };
   
   return (
     <div>
@@ -94,8 +113,7 @@ const DonorWelcome = () => {
                   </td>
 
                   <td>
-                    {(donation?.status === 'Done' ||
-                    donation?.status === ' Canceled' )? (
+                    {(donation?.status === 'done' ||donation?.status === ' canceled') ? (
                       '--'
                     ) : (
                       <div className="dropdown dropdown-end ">
@@ -135,12 +153,22 @@ const DonorWelcome = () => {
                             {donation?.status === 'inprogress' && (
                               <div>
                                 <li>
-                                  <button className="btn btn-xs mb-3  btn-info text-white">
+                                  <button
+                                    onClick={() =>
+                                      hnadleStatusDone(donation._id)
+                                    }
+                                    className="btn btn-xs mb-3  btn-info text-white"
+                                  >
                                     Done
                                   </button>
                                 </li>
                                 <li>
-                                  <button className="btn btn-xs mb-3  btn-info text-white">
+                                  <button
+                                    onClick={() =>
+                                      hnadleStatusCancel(donation._id)
+                                    }
+                                    className="btn btn-xs mb-3  btn-info text-white"
+                                  >
                                     Canceled
                                   </button>
                                 </li>

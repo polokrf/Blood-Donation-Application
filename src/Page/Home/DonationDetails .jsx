@@ -29,7 +29,7 @@ const DonationDetails = () => {
   }
 
   const handleDonation = (data) => {
-    instance.patch(`/update-status/${donationDetails?._id}`, { ...data, status: ' inprogress' })
+    instance.patch(`/update-status/${donationDetails?._id}`, { ...data, status: 'inprogress' })
       .then(res => {
         toast.success('successful')
         navigate('/blood-donation');
@@ -69,7 +69,7 @@ const DonationDetails = () => {
               type="email"
               defaultValue={user?.email}
               readOnly
-              {...register('name', { required: true })}
+              {...register('email', { required: true })}
               className="input"
               placeholder="Email"
             />

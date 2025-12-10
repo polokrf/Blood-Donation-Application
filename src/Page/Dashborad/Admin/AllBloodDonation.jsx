@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { Link } from 'react-router';
 import { HiDotsHorizontal } from 'react-icons/hi';
 import useRole from '../../../Hook/useRole';
+import { toast } from 'react-toastify';
 
 const AllBloodDonation = () => {
   const instance = useAxios();
@@ -49,6 +50,24 @@ const AllBloodDonation = () => {
     
 
   }
+  const statusUpdate = (id, status) => {
+      instance.patch(`/only-status-update/${id}`, { status })
+        .then(res => {
+          toast.info(`Do you ${status}`)
+          refetch()
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  
+    const hnadleStatusDone = (id) => {
+      statusUpdate(id,'done')
+    }
+    const hnadleStatusCancel = (id) => {
+      statusUpdate(id,'canceled')
+    }
+    
   
 
   return (
@@ -92,7 +111,9 @@ const AllBloodDonation = () => {
                 </td>
 
                 <td>
-                  <div className="dropdown dropdown-end ">
+
+                  {
+                    (donation.status === 'pending' || donation.status === 'inprogress') ? <div className="dropdown dropdown-end ">
                     <button tabIndex={0} role="button" className="btn m-1">
                       <HiDotsHorizontal />
                     </button>
@@ -129,21 +150,26 @@ const AllBloodDonation = () => {
                             </Link>
                           </li>
                           <div>
-                            <li>
-                              {' '}
-                              <button className="btn btn-xs mb-3  btn-info text-white">
-                                inprogress
-                              </button>
-                            </li>
+                           
                             {donation?.status === 'inprogress' && (
                               <div>
                                 <li>
-                                  <button className="btn btn-xs mb-3  btn-info text-white">
+                                  <button
+                                    onClick={() =>
+                                      hnadleStatusDone(donation._id)
+                                    }
+                                    className="btn btn-xs mb-3  btn-info text-white"
+                                  >
                                     Done
                                   </button>
                                 </li>
                                 <li>
-                                  <button className="btn btn-xs mb-3  btn-info text-white">
+                                  <button
+                                    onClick={() =>
+                                      hnadleStatusCancel(donation._id)
+                                    }
+                                    className="btn btn-xs mb-3  btn-info text-white"
+                                  >
                                     Canceled
                                   </button>
                                 </li>
@@ -153,12 +179,7 @@ const AllBloodDonation = () => {
                         </div>
                       ) : (
                         <div>
-                          <li>
-                            {' '}
-                            <button className="btn btn-xs mb-3  btn-info text-white">
-                              inprogress
-                            </button>
-                          </li>
+                          
                           {donation?.status === 'inprogress' && (
                             <div>
                               <li>
@@ -176,7 +197,14 @@ const AllBloodDonation = () => {
                         </div>
                       )}
                     </ul>
-                  </div>
+                  </div>  :<p>--</p>
+                  }
+
+                   
+                                   
+                                  
+                 
+                
                 </td>
               </tr>
             ))}

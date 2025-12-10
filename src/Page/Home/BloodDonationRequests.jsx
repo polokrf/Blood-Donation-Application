@@ -32,10 +32,7 @@ const BloodDonationRequests = () => {
               <th>Donation Time</th>
               <th>Blood Group</th>
 
-              <th>
-                <p>Donor</p>
-                (Name, Email)
-              </th>
+            
               <th>Action</th>
             </tr>
           </thead>
@@ -51,11 +48,7 @@ const BloodDonationRequests = () => {
                 <td>{donation?.donation_time}</td>
                 <td>{donation?.blood_group}</td>
 
-                <td>
-                  {donation?.status === 'inprogress'
-                    ? `${donation?.donor_email},${donation?.donor_name}`
-                    : '--'}
-                </td>
+                
 
                 <td>
                   <Link

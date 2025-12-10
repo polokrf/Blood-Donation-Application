@@ -6,6 +6,7 @@ import { HiDotsHorizontal } from 'react-icons/hi';
 import { Link } from 'react-router';
 
 import Swal from 'sweetalert2';
+import { toast } from 'react-toastify';
 
 const MyDonationRequests = () => {
   const { user } = useAuth();
@@ -18,6 +19,7 @@ const MyDonationRequests = () => {
     },
     
   });
+  console.log(myDonation)
   
   const handleDelete = (donation) => {
     Swal.fire({
@@ -51,6 +53,24 @@ const MyDonationRequests = () => {
     
 
   }
+
+  const statusUpdate = (id, status) => {
+    instance.patch(`/only-status-update/${id}`, { status })
+      .then(res => {
+        toast.info(`Do you ${status}`)
+        refetch()
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  const hnadleStatusDone = (id) => {
+    statusUpdate(id,'done')
+  }
+  const hnadleStatusCancel = (id) => {
+    statusUpdate(id,'canceled')
+  }
   
 
   return (
@@ -60,7 +80,7 @@ const MyDonationRequests = () => {
           <thead>
             <tr>
               <th>SL</th>
-              <th>Recipient  Name</th>
+              <th>Recipient Name</th>
               <th>
                 <p>Location</p>( District, Upazila)
               </th>
@@ -94,57 +114,69 @@ const MyDonationRequests = () => {
                 </td>
 
                 <td>
-                  <div className="dropdown dropdown-end ">
-                    <button tabIndex={0} role="button" className="btn m-1">
-                      <HiDotsHorizontal />
-                    </button>
-
-                    <ul
-                      tabIndex="-1"
-                      className="dropdown-content menu bg-black rounded-box z-1 w-52 p-2 shadow-sm"
-                    >
-                      <li>
-                        <Link
-                          className="btn btn-xs mb-3 btn-info text-white"
-                          to={`/dashboard/edit/${donation._id}`}
-                        >
-                          Edit
-                        </Link>
-                      </li>
-                      <li>
-                        <button
-                          onClick={() => handleDelete(donation)}
-                          className="btn btn-xs mb-3  btn-info text-white"
-                        >
-                          Delete
-                        </button>
-                      </li>
-                      <li>
-                        <Link
-                          className="btn btn-xs mb-3  btn-info text-white"
-                          to={`/dashboard/view/${donation._id}`}
-                        >
-                          View
-                        </Link>
-                      </li>
-                      <div>
-                        {donation?.status === 'inprogress' && (
-                          <div>
-                            <li>
-                              <button className="btn btn-xs mb-3  btn-info text-white">
-                                Done
-                              </button>
-                            </li>
-                            <li>
-                              <button className="btn btn-xs mb-3  btn-info text-white">
-                                Canceled
-                              </button>
-                            </li>
-                          </div>
-                        )}
-                      </div>
-                    </ul>
-                  </div>
+                  {donation.status === 'pending' ||
+                  donation.status === 'inprogress' ? (
+                    <div className="dropdown dropdown-end ">
+                      <button tabIndex={0} role="button" className="btn m-1">
+                        <HiDotsHorizontal />
+                      </button>
+                      <ul
+                        tabIndex="-1"
+                        className="dropdown-content menu bg-black rounded-box z-1 w-52 p-2 shadow-sm"
+                      >
+                        <li>
+                          <Link
+                            className="btn btn-xs mb-3 btn-info text-white"
+                            to={`/dashboard/edit/${donation._id}`}
+                          >
+                            Edit
+                          </Link>
+                        </li>
+                        <li>
+                          <button
+                            onClick={() => handleDelete(donation)}
+                            className="btn btn-xs mb-3  btn-info text-white"
+                          >
+                            Delete
+                          </button>
+                        </li>
+                        <li>
+                          <Link
+                            className="btn btn-xs mb-3  btn-info text-white"
+                            to={`/dashboard/view/${donation._id}`}
+                          >
+                            View
+                          </Link>
+                        </li>
+                        <div>
+                          {donation?.status === 'inprogress' && (
+                            <div>
+                              <li>
+                                <button
+                                  onClick={() => hnadleStatusDone(donation._id)}
+                                  className="btn btn-xs mb-3  btn-info text-white"
+                                >
+                                  Done
+                                </button>
+                              </li>
+                              <li>
+                                <button
+                                  onClick={() =>
+                                    hnadleStatusCancel(donation._id)
+                                  }
+                                  className="btn btn-xs mb-3  btn-info text-white"
+                                >
+                                  Cancel
+                                </button>
+                              </li>
+                            </div>
+                          )}
+                        </div>
+                      </ul>
+                    </div>
+                  ) : (
+                    <p>--</p>
+                  )}
                 </td>
               </tr>
             ))}
