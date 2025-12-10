@@ -4,7 +4,7 @@ import useAuth from '../../Hook/useAuth';
 import useAxios from '../../Hook/useAxios';
 import { HiDotsHorizontal } from 'react-icons/hi';
 import { Link } from 'react-router';
-import { toast } from 'react-toastify';
+
 import Swal from 'sweetalert2';
 
 const MyDonationRequests = () => {
@@ -60,7 +60,7 @@ const MyDonationRequests = () => {
           <thead>
             <tr>
               <th>SL</th>
-              <th>Requester Name</th>
+              <th>Recipient  Name</th>
               <th>
                 <p>Location</p>( District, Upazila)
               </th>
@@ -79,7 +79,7 @@ const MyDonationRequests = () => {
             {myDonation.map((donation, i) => (
               <tr key={donation._id}>
                 <td>{i + 1}</td>
-                <td>{donation?.requester_name}</td>
+                <td>{donation?.recipient_name}</td>
                 <td>
                   {donation?.recipient_district},{donation?.recipient_upazila}
                 </td>
@@ -104,17 +104,26 @@ const MyDonationRequests = () => {
                       className="dropdown-content menu bg-black rounded-box z-1 w-52 p-2 shadow-sm"
                     >
                       <li>
-                        <Link  className="btn btn-xs mb-3 btn-info text-white" to={`/dashboard/edit/${donation._id}`}>
+                        <Link
+                          className="btn btn-xs mb-3 btn-info text-white"
+                          to={`/dashboard/edit/${donation._id}`}
+                        >
                           Edit
                         </Link>
                       </li>
                       <li>
-                        <button onClick={()=>handleDelete(donation)} className="btn btn-xs mb-3  btn-info text-white">
+                        <button
+                          onClick={() => handleDelete(donation)}
+                          className="btn btn-xs mb-3  btn-info text-white"
+                        >
                           Delete
                         </button>
                       </li>
                       <li>
-                        <Link className="btn btn-xs mb-3  btn-info text-white" to={`/dashboard/view/${donation._id}`}>
+                        <Link
+                          className="btn btn-xs mb-3  btn-info text-white"
+                          to={`/dashboard/view/${donation._id}`}
+                        >
                           View
                         </Link>
                       </li>

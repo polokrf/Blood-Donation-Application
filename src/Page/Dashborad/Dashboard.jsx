@@ -5,6 +5,8 @@ import { IoCreateOutline } from 'react-icons/io5';
 import { VscGitPullRequestGoToChanges } from 'react-icons/vsc';
 import { Link, Outlet } from 'react-router';
 import useRole from '../../Hook/useRole';
+import DonorWelcome from './WelComePage/DonorWelcome';
+import { RiSecurePaymentFill } from 'react-icons/ri';
 
 const Dashboard = () => {
 
@@ -80,6 +82,17 @@ const Dashboard = () => {
                 </Link>
               </li>
 
+              {/* myProfile rout */}
+
+              <li>
+                <Link
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  to="/dashboard/founding"
+                >
+                  <RiSecurePaymentFill />
+                  <span className="is-drawer-close:hidden">Funding</span>
+                </Link>
+              </li>
               {/* myProfile rout */}
 
               <li>

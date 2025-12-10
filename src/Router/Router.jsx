@@ -14,6 +14,13 @@ import AllUsers from "../Page/Dashborad/Admin/AllUsers";
 import AllBloodDonation from "../Page/Dashborad/Admin/AllBloodDonation";
 import AdminPrivetRouter from "../PrivetRoutrs/AdminPrivet/AdminPrivetRouter";
 import VolunteerAdminPrivet from "../PrivetRoutrs/AdminPrivet/VolunteerAdminPrivet";
+import DonorWelcome from "../Page/Dashborad/WelComePage/DonorWelcome";
+import Funding from "../Page/Dashborad/Payment/Funding";
+import PaymentSuccess from "../Page/Dashborad/Payment/PaymentSuccess";
+import PAymentCanceled from "../Page/Dashborad/Payment/PAymentCanceled";
+
+
+
 
 export const router = createBrowserRouter([
   {
@@ -46,6 +53,22 @@ export const router = createBrowserRouter([
     ),
     errorElement: <p>error</p>,
     children: [
+      {
+        index: 'dashboard',
+        element: (
+          <PrivetRouters>
+            <DonorWelcome></DonorWelcome>
+          </PrivetRouters>
+        ),
+      },
+      {
+        path: 'founding',
+        element: (
+          <PrivetRouters>
+            <Funding></Funding>
+          </PrivetRouters>
+        ),
+      },
       {
         path: 'profile',
         element: (
@@ -107,6 +130,22 @@ export const router = createBrowserRouter([
               <AllBloodDonation></AllBloodDonation>
             </PrivetRouters>
           </VolunteerAdminPrivet>
+        ),
+      },
+      {
+        path: 'payment-success',
+        element: (
+          <PrivetRouters>
+            <PaymentSuccess></PaymentSuccess>
+          </PrivetRouters>
+        ),
+      },
+      {
+        path: 'payment-canceled',
+        element: (
+          <PrivetRouters>
+            <PAymentCanceled></PAymentCanceled>
+          </PrivetRouters>
         ),
       },
     ],
