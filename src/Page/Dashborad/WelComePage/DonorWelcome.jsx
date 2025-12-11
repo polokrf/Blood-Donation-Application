@@ -6,6 +6,7 @@ import { Link } from 'react-router';
 import { HiDotsHorizontal } from 'react-icons/hi';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
+import { FaUserInjured } from 'react-icons/fa';
 
 const DonorWelcome = () => {
   const { user } = useAuth()
@@ -70,11 +71,25 @@ const DonorWelcome = () => {
    };
   
   return (
-    <div>
-      <h1>Welcome {user?.displayName}</h1>
+    <div className="bg-linear-to-br  from-[#1E3A8A] via-[#2563EB] to-[#3B82F6] min-h-screen flex flex-col justify-center items-center">
+      <div className="py-[60px] text-center" data-aos="fade-down">
+        <h2 className=" text-center mb-2">
+          <FaUserInjured
+            style={{ color: 'white' }}
+            className=" inline-block "
+            size={60}
+          />
+        </h2>
+        <h1 className="text-white font-bold text-4xl capitalize">
+          <span >Welcome</span>
 
-      <div>
-        <div className="overflow-x-auto">
+          <span className="block   mt-3">
+            {user?.displayName}
+          </span>
+        </h1>
+      </div>
+      <div className="md:max-w-[1400px] w-full mx-auto">
+        <div className="overflow-x-auto bg-base-100  p-4 " data-aos="fade-left">
           <table className="table table-sm">
             <thead>
               <tr>
@@ -96,7 +111,7 @@ const DonorWelcome = () => {
             </thead>
             <tbody>
               {recent.map((donation, i) => (
-                <tr key={donation._id}>
+                <tr key={donation._id} className='hover:bg-gray-200 '>
                   <td>{i + 1}</td>
                   <td>{donation?.recipient_name}</td>
                   <td>
@@ -113,7 +128,8 @@ const DonorWelcome = () => {
                   </td>
 
                   <td>
-                    {(donation?.status === 'done' ||donation?.status === ' canceled') ? (
+                    {donation?.status === 'done' ||
+                    donation?.status === ' canceled' ? (
                       '--'
                     ) : (
                       <div className="dropdown dropdown-end ">
@@ -183,14 +199,15 @@ const DonorWelcome = () => {
               ))}
             </tbody>
           </table>
-
-          <Link
-            className="btn btn-info btn-outline"
-            to="/dashboard/my-donation-requests"
-          >
-            view my all request
-          </Link>
         </div>
+      </div>
+      <div className="my-5 ">
+        <Link
+          className="btn btn-info text-white"
+          to="/dashboard/my-donation-requests"
+        >
+          view my all request
+        </Link>
       </div>
     </div>
   );

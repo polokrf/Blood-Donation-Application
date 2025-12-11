@@ -71,10 +71,17 @@ const AllBloodDonation = () => {
   
 
   return (
-    <div>
+    <div className='md:max-w-[1400px] w-full mx-auto py-[60px] px-2'>
+      <div className='text-center my-10'>
+        <h1 className='text-2xl text-red-950 font-bold capitalize mb-2'>All Blood Donation Requests</h1>
+        <p className='text-red-700'>
+          Manage and track blood donation requests. Admins have full control,
+          while volunteers can view requests and update donation status.
+        </p>
+      </div>
       <div className="overflow-x-auto">
         <table className="table table-sm">
-          <thead>
+          <thead className='bg-red-500 text-white'>
             <tr>
               <th>SL</th>
               <th>Requester Name</th>
@@ -94,7 +101,7 @@ const AllBloodDonation = () => {
           </thead>
           <tbody>
             {allDOnation.map((donation, i) => (
-              <tr key={donation._id}>
+              <tr key={donation._id} className='hover:bg-gray-100'>
                 <td>{i + 1}</td>
                 <td>{donation?.requester_name}</td>
                 <td>
@@ -111,100 +118,94 @@ const AllBloodDonation = () => {
                 </td>
 
                 <td>
+                  {donation.status === 'pending' ||
+                  donation.status === 'inprogress' ? (
+                    <div className="dropdown dropdown-end ">
+                      <button tabIndex={0} role="button" className="btn m-1">
+                        <HiDotsHorizontal />
+                      </button>
 
-                  {
-                    (donation.status === 'pending' || donation.status === 'inprogress') ? <div className="dropdown dropdown-end ">
-                    <button tabIndex={0} role="button" className="btn m-1">
-                      <HiDotsHorizontal />
-                    </button>
-
-                    <ul
-                      tabIndex="-1"
-                      className="dropdown-content menu bg-black rounded-box z-1 w-52 p-2 shadow-sm"
-                    >
-                      {role === 'Admin' ? (
-                        <div>
-                          {' '}
-                          <li>
-                            <Link
-                              className="btn btn-xs mb-3 btn-info text-white"
-                              to={`/dashboard/edit/${donation._id}`}
-                            >
-                              Edit
-                            </Link>
-                          </li>
-                          <li>
-                            <button
-                              onClick={() => handleDelete(donation)}
-                              className="btn btn-xs mb-3  btn-info text-white"
-                            >
-                              Delete
-                            </button>
-                          </li>
-                          <li>
-                            <Link
-                              className="btn btn-xs mb-3  btn-info text-white"
-                              to={`/dashboard/view/${donation._id}`}
-                            >
-                              View
-                            </Link>
-                          </li>
+                      <ul
+                        tabIndex="-1"
+                        className="dropdown-content menu bg-black rounded-box z-1 w-52 p-2 shadow-sm"
+                      >
+                        {role === 'Admin' ? (
                           <div>
-                           
+                            {' '}
+                            <li>
+                              <Link
+                                className="btn btn-xs mb-3 btn-info text-white"
+                                to={`/dashboard/edit/${donation._id}`}
+                              >
+                                Edit
+                              </Link>
+                            </li>
+                            <li>
+                              <button
+                                onClick={() => handleDelete(donation)}
+                                className="btn btn-xs mb-3  btn-info text-white"
+                              >
+                                Delete
+                              </button>
+                            </li>
+                            <li>
+                              <Link
+                                className="btn btn-xs mb-3  btn-info text-white"
+                                to={`/dashboard/view/${donation._id}`}
+                              >
+                                View
+                              </Link>
+                            </li>
+                            <div>
+                              {donation?.status === 'inprogress' && (
+                                <div>
+                                  <li>
+                                    <button
+                                      onClick={() =>
+                                        hnadleStatusDone(donation._id)
+                                      }
+                                      className="btn btn-xs mb-3  btn-info text-white"
+                                    >
+                                      Done
+                                    </button>
+                                  </li>
+                                  <li>
+                                    <button
+                                      onClick={() =>
+                                        hnadleStatusCancel(donation._id)
+                                      }
+                                      className="btn btn-xs mb-3  btn-info text-white"
+                                    >
+                                      Canceled
+                                    </button>
+                                  </li>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        ) : (
+                          <div>
                             {donation?.status === 'inprogress' && (
                               <div>
                                 <li>
-                                  <button
-                                    onClick={() =>
-                                      hnadleStatusDone(donation._id)
-                                    }
-                                    className="btn btn-xs mb-3  btn-info text-white"
-                                  >
+                                  <button className="btn btn-xs mb-3  btn-info text-white">
                                     Done
                                   </button>
                                 </li>
                                 <li>
-                                  <button
-                                    onClick={() =>
-                                      hnadleStatusCancel(donation._id)
-                                    }
-                                    className="btn btn-xs mb-3  btn-info text-white"
-                                  >
+                                  <button className="btn btn-xs mb-3  btn-info text-white">
                                     Canceled
                                   </button>
                                 </li>
                               </div>
                             )}
                           </div>
-                        </div>
-                      ) : (
-                        <div>
-                          
-                          {donation?.status === 'inprogress' && (
-                            <div>
-                              <li>
-                                <button className="btn btn-xs mb-3  btn-info text-white">
-                                  Done
-                                </button>
-                              </li>
-                              <li>
-                                <button className="btn btn-xs mb-3  btn-info text-white">
-                                  Canceled
-                                </button>
-                              </li>
-                            </div>
-                          )}
-                        </div>
-                      )}
-                    </ul>
-                  </div>  :<p>--</p>
-                  }
-
-                   
-                                   
-                                  
-                 
-                
+                        )}
+                      </ul>
+                    </div>
+                  ) : (
+                    <p>--</p>
+                  )}
                 </td>
               </tr>
             ))}

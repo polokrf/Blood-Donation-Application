@@ -74,10 +74,19 @@ const MyDonationRequests = () => {
   
 
   return (
-    <div>
+    <div className="md:max-w-[1400px] w-full mx-auto py-[65px] px-2">
+      <div className="text-center my-10">
+        <h1 className="text-2xl font-bold text-red-950 mb-2 capitalize">
+          My Blood Donation Requests
+        </h1>
+        <p className="text-red-800">
+          View and manage all your blood donation requests. Filter by status or
+          browse through pages to track the progress of each request.
+        </p>
+      </div>
       <div className="overflow-x-auto">
         <table className="table table-sm">
-          <thead>
+          <thead className="bg-red-500 hover:bg-red-400 transition-colors duration-150 text-white">
             <tr>
               <th>SL</th>
               <th>Recipient Name</th>
@@ -97,7 +106,10 @@ const MyDonationRequests = () => {
           </thead>
           <tbody>
             {myDonation.map((donation, i) => (
-              <tr key={donation._id}>
+              <tr
+                key={donation._id}
+                className="transform hover:scale-105 transition-transform duration-300 hover:bg-gray-100"
+              >
                 <td>{i + 1}</td>
                 <td>{donation?.recipient_name}</td>
                 <td>
