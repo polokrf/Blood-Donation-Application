@@ -6,7 +6,7 @@ const SearchDonor = ({ donor }) => {
   console.log(donor)
   return (
     <div>
-      <div className="card card-border bg-base-100 w-full">
+      <div className="card card-border bg-base-100 w-full " data-aos="zoom-in">
         <div className="card-body">
           <div className="mx-auto">
             <img
@@ -22,10 +22,9 @@ const SearchDonor = ({ donor }) => {
             </span>
           </div>
           <div>
-            <p className='mb-2 font-bold'>District : {donor?.district}</p>
-            <p className='font-bold'>Upazila : { donor?.upazaila}</p>
+            <p className="mb-2 font-bold">District : {donor?.district}</p>
+            <p className="font-bold">Upazila : {donor?.upazaila}</p>
           </div>
-         
         </div>
       </div>
     </div>
