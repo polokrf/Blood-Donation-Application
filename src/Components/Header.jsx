@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, NavLink } from 'react-router';
 import useAuth from '../Hook/useAuth';
 import { toast } from 'react-toastify';
 
@@ -10,14 +10,17 @@ const Header = () => {
   const navbare = (
     <>
       <li>
-        <Link to="/">Home</Link>
+        <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <Link to="/blood-donation">Blood-Donation</Link>
+        <NavLink to="/blood-donation">Blood-Donation</NavLink>
       </li>
-      <li>
-        <Link to="/dashboard">Dashboard</Link>
-      </li>
+      {user && (
+        <li>
+          <NavLink to="/dashboard/founding">Funding</NavLink>
+        </li>
+      )}
+      
     </>
   );
 
@@ -54,19 +57,50 @@ const Header = () => {
               tabIndex="-1"
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
-             {navbare} 
+              {navbare}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl">daisyUI</a>
+          <img
+            src="https://i.ibb.co.com/9kq6CXHW/icons8-blood-donation-64-1.png"
+            className=""
+            alt=""
+          ></img>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-            {navbare}
-          </ul>
+          <ul className="menu menu-horizontal px-1">{navbare}</ul>
         </div>
         <div className="navbar-end">
           {user ? (
-            <Link onClick={handleOUt} className="btn btn-success btn-outline">LogOut</Link>
+            <div className="dropdown dropdown-end">
+              <div>
+                <img
+                  src={user?.photoURL}
+                  alt=""
+                  tabIndex={0}
+                  className="w-[50px] rounded-full"
+                />
+              </div>
+              <ul
+                tabIndex="-1"
+                className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+              >
+                <li className="mb-3">
+                  <NavLink className="btn " to="/dashboard">
+                    Dashboard
+                  </NavLink>
+                </li>
+
+                <li>
+                  <Link
+                    onClick={handleOUt}
+                    className="btn btn-success btn-outline"
+                  >
+                    {' '}
+                    LogOut
+                  </Link>
+                </li>
+              </ul>
+            </div>
           ) : (
             <Link className="btn btn-success btn-outline" to="/login">
               Login
