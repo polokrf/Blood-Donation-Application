@@ -10,7 +10,11 @@ const Feature = ({ featureData }) => {
   return (
     <div className=" grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 mt-[30px] mb-[60px] gap-4">
       {myData.map((data, i) => (
-        <div key={i} className="card bg-base-100  shadow-sm  ]">
+        <div
+          key={i}
+          className="card bg-base-100  shadow-sm  "
+          data-aos="fade-left"
+        >
           <figure className="p-2  hover-3d cursor-pointer">
             <img
               className="h-[250px] object-cover rounded-xl w-full "

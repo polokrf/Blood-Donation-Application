@@ -21,3 +21,7 @@
 .inputW{
    @apply  w-full 
 }
+
+.linerBg{
+   @apply bg-linear-to-r from-red-100 to-red-50 p-10
+}

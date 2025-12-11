@@ -62,13 +62,14 @@ const Header = () => {
           </div>
           <img
             src="https://i.ibb.co.com/9kq6CXHW/icons8-blood-donation-64-1.png"
-            className=""
+            className="lg:mr-4"
             alt=""
           ></img>
+          <div className=" hidden lg:flex">
+            <ul className="menu menu-horizontal px-1">{navbare}</ul>
+          </div>
         </div>
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{navbare}</ul>
-        </div>
+
         <div className="navbar-end">
           {user ? (
             <div className="dropdown dropdown-end">
