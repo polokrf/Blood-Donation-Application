@@ -33,8 +33,10 @@ const CreateDonation = () => {
 
   const handleDonation = (data) => {
     instance.post('/blood-donation', data).then(res => {
+      console.log(res)
       if (res?.data?.insertedId) {
         toast.success('successful');
+        
         reset()
       }
       if (res?.data?.message) {

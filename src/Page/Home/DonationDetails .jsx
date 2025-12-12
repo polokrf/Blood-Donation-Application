@@ -30,7 +30,7 @@ const DonationDetails = () => {
   }
 
   const handleDonation = (data) => {
-    instance.patch(`/update-status/${donationDetails?._id}`, { ...data, status: 'inprogress' })
+    instance.patch(`/update-status/${donation?._id}`, { ...data, status: 'inprogress' })
       .then(res => {
         toast.success('successful')
         navigate('/blood-donation');
@@ -41,7 +41,7 @@ const DonationDetails = () => {
       });
   }
   return (
-    <div className=" sm:max-w-[500px]  w-full mx-auto mb-[60px] md:mt-[75px] mt-[60px] ">
+    <div className=" sm:max-w-[500px]  w-full mx-auto mb-[60px] md:mt-[75px] mt-[60px] p-1">
       <div className="my-[45px] text-center">
         <h1 className="md:text-3xl text-2xl font-bold text-red-950 capitalize mb-3">
           Donation Request Information
@@ -51,7 +51,7 @@ const DonationDetails = () => {
         </p>
       </div>
       {/* details info in the donations  users */}
-      <div className="linerBg">
+      <div className="bg-blue-50">
         <div className="my-[45px]  w-full">
           <div
             className="card card-border bg-base-100 w-full "
@@ -92,7 +92,10 @@ const DonationDetails = () => {
 
               {/* message */}
               <div>
-                <p className="mb-2">{donation.message}</p>
+                <p className="mb-2">
+                  <span className="font-semibold">Description : </span>{' '}
+                  {donation.message}
+                </p>
 
                 <p className="font-semibold mb-1">
                   Address : {donation.full_address}

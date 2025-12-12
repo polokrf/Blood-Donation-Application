@@ -33,7 +33,7 @@ const MyProfile = () => {
       .patch(`/user-update-profile/${myProfile._id}`, { ...data ,blood_group})
       .then(res => {
         updateUser(personInfo)
-          .then(res => {
+          .then(() => {
            
             
           })
@@ -59,7 +59,7 @@ const MyProfile = () => {
   }
   
   return (
-    <div className="my-[60px] px-2">
+    <div className="my-[60px] px-2 ">
       <div className="text-center my-[45px]">
         <h3 className="text-2xl text-green-700 font-bold">My Profile</h3>
       </div>
@@ -68,7 +68,7 @@ const MyProfile = () => {
         onSubmit={handleSubmit(handleUpdateUserInfo)}
         className="md:max-w-[400px] w-full mx-auto"
       >
-        <div className=" bg-base-100 shadow p-3">
+        <div className=" bg-blue-50 shadow p-3">
           {state && (
             <button
               type="button"

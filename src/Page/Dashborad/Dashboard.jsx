@@ -3,7 +3,7 @@ import { FaHandHoldingHeart, FaUserCog } from 'react-icons/fa';
 import { FaUsersLine } from 'react-icons/fa6';
 import { IoCreateOutline } from 'react-icons/io5';
 import { VscGitPullRequestGoToChanges } from 'react-icons/vsc';
-import { Link, Outlet } from 'react-router';
+import { Link, NavLink, Outlet } from 'react-router';
 import useRole from '../../Hook/useRole';
 import DonorWelcome from './WelComePage/DonorWelcome';
 import { RiSecurePaymentFill } from 'react-icons/ri';
@@ -58,12 +58,12 @@ const Dashboard = () => {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
+          <div className="flex min-h-full flex-col items-start bg-blue-400 text-white  is-drawer-close:w-14 is-drawer-open:w-64">
             {/* Sidebar content here */}
             <ul className="menu w-full grow">
               {/* List item */}
               <li>
-                <Link
+                <NavLink
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   data-tip="Homepage"
                   to="/"
@@ -83,35 +83,35 @@ const Dashboard = () => {
                     <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                   </svg>
                   <span className="is-drawer-close:hidden">Home</span>
-                </Link>
+                </NavLink>
               </li>
 
               {/* myProfile rout */}
 
               <li>
-                <Link
+                <NavLink
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   to="/dashboard/founding"
                 >
                   <RiSecurePaymentFill />
                   <span className="is-drawer-close:hidden">Funding</span>
-                </Link>
+                </NavLink>
               </li>
               {/* myProfile rout */}
 
               <li>
-                <Link
+                <NavLink
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   to="/dashboard/profile"
                 >
                   <FaUserCog />
                   <span className="is-drawer-close:hidden">MyProfile</span>
-                </Link>
+                </NavLink>
               </li>
               {/* Create-Donation-Request rout */}
 
               <li>
-                <Link
+                <NavLink
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   to="/dashboard/create-donation-request"
                 >
@@ -119,13 +119,13 @@ const Dashboard = () => {
                   <span className="is-drawer-close:hidden">
                     Create-Donation-Request
                   </span>
-                </Link>
+                </NavLink>
               </li>
 
               {/* My-Donation-Request rout */}
 
               <li>
-                <Link
+                <NavLink
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   to="/dashboard/my-donation-requests"
                 >
@@ -133,20 +133,20 @@ const Dashboard = () => {
                   <span className="is-drawer-close:hidden">
                     MyDonationRequests
                   </span>
-                </Link>
+                </NavLink>
               </li>
 
               {/* Admin panel */}
               {role === 'Admin' && (
                 <div>
                   <li>
-                    <Link
+                    <NavLink
                       className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                       to="/dashboard/all-users"
                     >
                       <FaUsersLine />
                       <span className="is-drawer-close:hidden">All-Users</span>
-                    </Link>
+                    </NavLink>
                   </li>
                 </div>
               )}
@@ -154,7 +154,7 @@ const Dashboard = () => {
               {/* all donation request rout */}
               {(role === 'Admin' || role === 'Volunteer') && (
                 <li>
-                  <Link
+                  <NavLink
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     to="/dashboard/all-blood-donation-request"
                   >
@@ -163,7 +163,7 @@ const Dashboard = () => {
                     <span className="is-drawer-close:hidden">
                       All-Donation-Request
                     </span>
-                  </Link>
+                  </NavLink>
                 </li>
               )}
             

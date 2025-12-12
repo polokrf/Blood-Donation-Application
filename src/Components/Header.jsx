@@ -33,7 +33,7 @@ const Header = () => {
   }
   return (
     <div>
-      <div className="navbar bg-base-100 shadow-sm">
+      <div className="navbar  shadow-sm">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -78,7 +78,7 @@ const Header = () => {
                   src={user?.photoURL}
                   alt=""
                   tabIndex={0}
-                  className="w-[50px] rounded-full"
+                  className="w-[50px] h-[50px] object-cover rounded-full"
                 />
               </div>
               <ul

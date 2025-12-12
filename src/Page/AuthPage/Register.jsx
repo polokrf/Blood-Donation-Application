@@ -9,10 +9,10 @@ const upazailaData = fetch('/upazaila.json').then(res => res.json())
 const Register = () => {
     const [icon,setIcon]=useState(false)
   const [icon2, setIcon2] = useState(false);
-  const { registerUser, updateUser } = useAuth();
+  const { registerUser, updateUser,  } = useAuth();
   const location = useLocation();
   const navigate = useNavigate(); 
-  
+ 
 
   const districtData = useLoaderData();
   const upazailacovert = use(upazailaData);
@@ -41,7 +41,7 @@ const Register = () => {
     const photo = data.photo[0]
     registerUser(data.email, data.password)
       .then(res => {
-        
+       
         const formdata = new FormData();
         formdata.append('image', photo);
         const phot_url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_imag_key}`;
@@ -60,7 +60,7 @@ const Register = () => {
 
           axios.post('http://localhost:3000/user', userInfo)
             .then(res => {
-              console.log(res);
+             
             })
             .catch(err => {
               console.log(err);
@@ -70,23 +70,24 @@ const Register = () => {
             displayName: data.name,
             photoURL: res.data.data.url,
           };
-          updateUser(personInfo)
-            .then(res => {
-              console.log(res);
-             navigate(location.state || '/');
-            })
-            .catch(error => {
+         
+          
+          updateUser(personInfo).then(() => {
+             
+               
+            }).catch(error => {
               toast.error(error.message);
             });
 
-
+            
           
-          
+         
          
         }).catch(err => {
           console.log(err)
         })
-        
+     
+         navigate(location.state || '/');
        toast.success('successful');
     }).catch(err => toast.error(err.message))
 
@@ -151,9 +152,10 @@ const Register = () => {
                {...register('district', { required: true })}
                className="select"
              >
-             
                {districtData.map(d => (
-                 <option key={d.id} value={d.name}>{d?.name}</option>
+                 <option key={d.id} value={d.name}>
+                   {d?.name}
+                 </option>
                ))}
              </select>
              {/* upazila  */}
@@ -162,9 +164,10 @@ const Register = () => {
                {...register('upazaila', { required: true })}
                className="select"
              >
-               
                {filterUpazaila.map(upa => (
-                 <option key={upa.id} value={upa.name}>{upa?.name}</option>
+                 <option key={upa.id} value={upa.name}>
+                   {upa?.name}
+                 </option>
                ))}
              </select>
              {/* password */}
@@ -173,10 +176,12 @@ const Register = () => {
                <input
                  type={icon ? 'text' : 'password'}
                  className="input"
-                 {...register('password', { required: true })}
+                 {...register('password', { required: true, minLength: 6 })}
                  placeholder="Password"
                />
-
+               {errors.password?.type === 'minLength' && (
+                 <p className="text-red-500">Password length 6</p>
+               )}
                <button
                  type="button"
                  onClick={() => setIcon(!icon)}
@@ -191,7 +196,7 @@ const Register = () => {
                <input
                  type={icon2 ? 'text' : 'password'}
                  className="input"
-                 {...register('confirm_pas', { required: true })}
+                 {...register('confirm_pas', { required: true, min: 6 })}
                  placeholder="Password"
                />
 
@@ -209,7 +214,11 @@ const Register = () => {
          </form>
          <p>
            already have an account{' '}
-           <Link state={location.state} className="text-blue-600 font-bold underline" to="/login">
+           <Link
+             state={location.state}
+             className="text-blue-600 font-bold underline"
+             to="/login"
+           >
              Login
            </Link>
          </p>
