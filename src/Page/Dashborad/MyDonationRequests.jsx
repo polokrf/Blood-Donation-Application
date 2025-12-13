@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import useAuth from '../../Hook/useAuth';
 import useAxios from '../../Hook/useAxios';
 import { HiDotsHorizontal } from 'react-icons/hi';
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
 
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
@@ -11,6 +11,7 @@ import Loader from '../../LodingAndErrorPage/Loader';
 
 const MyDonationRequests = () => {
   const { user } = useAuth();
+  const location =useLocation()
 
   const instance = useAxios()
   const [statusF, setStatusF] = useState('')
@@ -162,9 +163,10 @@ const MyDonationRequests = () => {
                           className="dropdown-content menu bg-black rounded-box z-1 w-52 p-2 shadow-sm"
                         >
                           <li>
-                            <Link
+                            <Link 
                               className="btn btn-xs mb-3 btn-info text-white"
                               to={`/dashboard/edit/${donation._id}`}
+                              state={location.pathname}
                             >
                               Edit
                             </Link>

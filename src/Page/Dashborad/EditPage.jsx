@@ -1,5 +1,5 @@
 import React, { use } from 'react';
-import { useLoaderData, useNavigate, useParams } from 'react-router';
+import { useLoaderData, useLocation, useNavigate, useParams } from 'react-router';
 import useAuth from '../../Hook/useAuth';
 import useAxios from '../../Hook/useAxios';
 import { useForm, useWatch } from 'react-hook-form';
@@ -11,19 +11,24 @@ const upazilaPromise = fetch('/upazaila.json').then(res => res.json());
 const EditPage = () => {
   
   const {id} =useParams()
-  const districtData = useLoaderData();
+  const districtData = useLoaderData()
   const upazilaData = use(upazilaPromise);
-  const { user } = useAuth();
+
   const instance = useAxios();
   const navigate = useNavigate()
+
+  const location = useLocation();
+  
+  
+ 
  
   const singleDistrictName = districtData.map(d => d.name);
    const {
      register,
      handleSubmit,
      control,
-    reset,
-     formState: { errors },
+    
+     
   } = useForm();
   
   const district = useWatch({ control, name: 'recipient_district' });
@@ -41,7 +46,7 @@ const EditPage = () => {
       return res.data
     }
   })
-  console.log(edit)
+ 
 
   const handleDonation = (data) => {
     instance.patch(`/update-data/${edit._id}`, data)
@@ -49,12 +54,11 @@ const EditPage = () => {
         
         if (res.data?.modifiedCount) {
           toast.success('successful');
-          navigate('/dashboard/my-donation-requests');
+          navigate(location.state);
         } 
          
         
-    })
-      .catch(err => {
+    }).catch(err => {
         console.log(err);
       });
   }
@@ -80,7 +84,7 @@ const EditPage = () => {
               <input
                 type="text"
                 className="input inputW"
-                defaultValue={user?.displayName}
+                defaultValue={edit?.requester_name}
                 readOnly
                 {...register('requester_name', { required: true })}
                 placeholder="Requester Name"
@@ -92,7 +96,7 @@ const EditPage = () => {
               <input
                 type="Email"
                 className="input inputW"
-                defaultValue={user?.email}
+                defaultValue={edit?.requester_email}
                 readOnly
                 {...register('requester_email', { required: true })}
                 placeholder="requester email"

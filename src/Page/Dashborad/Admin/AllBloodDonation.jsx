@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import useAxios from '../../../Hook/useAxios';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
 import { HiDotsHorizontal } from 'react-icons/hi';
 import useRole from '../../../Hook/useRole';
 import { toast } from 'react-toastify';
@@ -10,10 +10,13 @@ import Loader from '../../../LodingAndErrorPage/Loader';
 
 const AllBloodDonation = () => {
   const instance = useAxios();
+  const location = useLocation();
+  
   const [statusF, setStatusF] = useState('');
   const limit = 10;
   const [totalPage, setTotalPage] = useState(0);
-  const [currentPage,setCurrentPage]=useState(0)
+  const [currentPage, setCurrentPage] = useState(0)
+   
   const {role}=useRole()
   const { data: allDOnation = [] ,refetch,isLoading} = useQuery({
     queryKey: ['all-donation-request',statusF,limit,currentPage],
@@ -164,7 +167,8 @@ const AllBloodDonation = () => {
                                   <li>
                                     <Link
                                       className="btn btn-xs mb-3 btn-info text-white"
-                                      to={`/dashboard/edit/${donation._id}`}
+                                        to={`/dashboard/edit/${donation._id}`}
+                                        state={location.pathname}
                                     >
                                       Edit
                                     </Link>
