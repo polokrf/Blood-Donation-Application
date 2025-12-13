@@ -14,13 +14,14 @@ import AllUsers from "../Page/Dashborad/Admin/AllUsers";
 import AllBloodDonation from "../Page/Dashborad/Admin/AllBloodDonation";
 import AdminPrivetRouter from "../PrivetRoutrs/AdminPrivet/AdminPrivetRouter";
 import VolunteerAdminPrivet from "../PrivetRoutrs/AdminPrivet/VolunteerAdminPrivet";
-import DonorWelcome from "../Page/Dashborad/WelComePage/DonorWelcome";
+
 import Funding from "../Page/Dashborad/Payment/Funding";
 import PaymentSuccess from "../Page/Dashborad/Payment/PaymentSuccess";
 import PAymentCanceled from "../Page/Dashborad/Payment/PAymentCanceled";
 import SearchPage from "../Page/Home/SearchPage";
 import BloodDonationRequests from "../Page/Home/BloodDonationRequests";
 import DonationDetails from "../Page/Home/DonationDetails ";
+import WelcomePage from "../Page/Dashborad/WelComePage/WelcomePage";
 
 
 
@@ -76,7 +77,7 @@ export const router = createBrowserRouter([
         index: 'dashboard',
         element: (
           <PrivetRouters>
-            <DonorWelcome></DonorWelcome>
+           <WelcomePage></WelcomePage>
           </PrivetRouters>
         ),
       },

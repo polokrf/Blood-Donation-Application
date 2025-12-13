@@ -136,7 +136,7 @@ const SearchPage = () => {
             </h1>
           </div>
         )}
-        <div className="grid  grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 md:grid-cols-2  justify-center items-center">
+        <div className="grid  grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 md:grid-cols-2  justify-center items-center gap-3">
           {searchValue.map(donor => (
             <SearchDonor key={donor?._id} donor={donor}></SearchDonor>
           ))}

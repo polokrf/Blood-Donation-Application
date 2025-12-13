@@ -91,7 +91,35 @@ const BloodDonationRequests = () => {
           </div>
         </div>
       </div>
-      
+      {/* pagination */}
+      <div className="text-center my-6 ">
+        {currentPage > 0 && (
+          <button
+            onClick={() => setCurrentPage(currentPage - 1)}
+            className="btn mr-2"
+          >
+            Prev
+          </button>
+        )}
+        {[...Array(totalPage).keys()].map(i => (
+          <button
+            className={` btn ${
+              i === currentPage && 'btn-info text-white'
+            } mr-2 my-4 `}
+            onClick={() => setCurrentPage(i)}
+          >
+            {i + 1}
+          </button>
+        ))}
+        {currentPage < totalPage - 1 && (
+          <button
+            onClick={() => setCurrentPage(currentPage + 1)}
+            className="btn ml-2"
+          >
+            Next
+          </button>
+        )}
+      </div>
     </div>
   );
 };
