@@ -22,7 +22,7 @@ const MyDonationRequests = () => {
   const { data:myDonation=[], refetch ,isLoading} = useQuery({
     queryKey: ['my-donation-requests', user?.email,statusF,limit,currentPage],
     queryFn: async () => {
-      const res = await instance.get(`/my-donation-request?email=${user?.email}&filter=${statusF}&limit=${limit}&skip=${currentPage * limit}`);
+      const res = await instance.get(`/my-donation-request?email=${user?.email}&status=${statusF}&limit=${limit}&skip=${currentPage * limit}`);
        const page = Math.ceil(res.data.countData / limit);
        setTotalPage(page);
       return res.data.result;
@@ -163,7 +163,7 @@ const MyDonationRequests = () => {
                           className="dropdown-content menu bg-black rounded-box z-1 w-52 p-2 shadow-sm"
                         >
                           <li>
-                            <Link 
+                            <Link
                               className="btn btn-xs mb-3 btn-info text-white"
                               to={`/dashboard/edit/${donation._id}`}
                               state={location.pathname}
@@ -187,32 +187,37 @@ const MyDonationRequests = () => {
                               View
                             </Link>
                           </li>
+                          {/* status is inprogress */}
+                          <div>
+                            {donation?.status === 'inprogress' && (
+                              <div>
+                                <li>
+                                  <button
+                                    onClick={() =>
+                                      hnadleStatusDone(donation._id)
+                                    }
+                                    className="btn btn-xs mb-3  btn-info text-white"
+                                  >
+                                    Done
+                                  </button>
+                                </li>
+                                <li>
+                                  <button
+                                    onClick={() =>
+                                      hnadleStatusCancel(donation._id)
+                                    }
+                                    className="btn btn-xs mb-3  btn-info text-white"
+                                  >
+                                    Cancel
+                                  </button>
+                                </li>
+                              </div>
+                            )}
+                          </div>
                         </ul>
                       </div>
                     )}
-                    {/* status is inprogress */}
-                    <div>
-                      {donation?.status === 'inprogress' && (
-                        <div>
-                          <li>
-                            <button
-                              onClick={() => hnadleStatusDone(donation._id)}
-                              className="btn btn-xs mb-3  btn-info text-white"
-                            >
-                              Done
-                            </button>
-                          </li>
-                          <li>
-                            <button
-                              onClick={() => hnadleStatusCancel(donation._id)}
-                              className="btn btn-xs mb-3  btn-info text-white"
-                            >
-                              Cancel
-                            </button>
-                          </li>
-                        </div>
-                      )}
-                    </div>
+
                     {/* status is done  */}
                     <div>
                       {(donation.status === 'done' ||
