@@ -9,7 +9,7 @@ const upazailaData = fetch('/upazaila.json').then(res => res.json());
 const Register = () => {
   const [icon, setIcon] = useState(false);
   const [icon2, setIcon2] = useState(false);
-  const { registerUser, updateUser } = useAuth();
+  const { registerUser, updateUser,setUser } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -38,7 +38,7 @@ const Register = () => {
 
     const photo = data.photo[0];
     registerUser(data.email, data.password)
-      .then(res => {
+      .then(resUser => {
         const formdata = new FormData();
         formdata.append('image', photo);
         const phot_url = `https://api.imgbb.com/1/upload?key=${
@@ -57,8 +57,7 @@ const Register = () => {
               blood_group: data.blood_group,
             };
 
-            axios
-              .post(
+            axios.post(
                 'https://blood-donation-server-rho.vercel.app/user',
                 userInfo
               )
@@ -71,6 +70,7 @@ const Register = () => {
               displayName: data.name,
               photoURL: res.data.data.url,
             };
+            setUser({...resUser,...personInfo})
 
             updateUser(personInfo)
               .then(() => {})
