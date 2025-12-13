@@ -12,7 +12,7 @@ const Login = () => {
   const { login } = useAuth()
   const location = useLocation()
   const navigate = useNavigate() 
-  console.log(location)
+  
 
   const {
     register,

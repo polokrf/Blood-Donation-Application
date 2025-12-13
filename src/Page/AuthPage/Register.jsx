@@ -45,8 +45,7 @@ const Register = () => {
           import.meta.env.VITE_imag_key
         }`;
 
-        axios
-          .post(phot_url, formdata)
+        axios.post(phot_url, formdata)
           .then(res => {
             const userInfo = {
               name: data.name,
