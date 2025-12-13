@@ -7,9 +7,11 @@ import { HiDotsHorizontal } from 'react-icons/hi';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
 import { FaUserInjured } from 'react-icons/fa';
+import { useLocation } from 'react-router';
 
 const DonorWelcome = () => {
   const { user } = useAuth()
+ const  location = useLocation()
   const instance=useAxios()
   const { data:recent=[],refetch } = useQuery({
     queryKey: ['recent-request', user?.email],
@@ -154,6 +156,7 @@ const DonorWelcome = () => {
                                     <Link
                                       className="btn btn-xs mb-3 btn-info text-white"
                                       to={`/dashboard/edit/${donation._id}`}
+                                      state={location.pathname}
                                     >
                                       Edit
                                     </Link>

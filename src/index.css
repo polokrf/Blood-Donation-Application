@@ -23,7 +23,7 @@
 }
 
 .linerBg{
-   @apply bg-linear-to-r from-red-100 to-red-50 p-10
+   @apply bg-linear-to-r from-red-100 to-red-50 md:py-8
 }
 a.active{
    @apply bg-red-400 text-white

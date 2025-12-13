@@ -41,11 +41,11 @@ const BloodDonationRequests = () => {
             </p>
           </div>
 
-          <div className="my-[45px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-center items-center w-full gap-3">
+          <div className="my-[45px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-center items-center  w-full gap-3 ">
             {pendingData.map(donation => (
               <div
                 key={donation._id}
-                className="card card-border bg-base-100 w-full "
+                className="card card-border bg-base-100 w-full  "
                 data-aos="fade-left"
               >
                 <div className="card-body">
@@ -96,7 +96,7 @@ const BloodDonationRequests = () => {
         </div>
       </div>
       {/* pagination */}
-      <div className="text-center my-6 ">
+      <div className="text-center mt-2 ">
         {currentPage > 0 && (
           <button
             onClick={() => setCurrentPage(currentPage - 1)}

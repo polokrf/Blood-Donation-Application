@@ -5,8 +5,8 @@ import { MdBloodtype } from 'react-icons/md';
 const SearchDonor = ({ donor }) => {
   console.log(donor)
   return (
-    <div>
-      <div className="card card-border bg-base-100 w-full " data-aos="zoom-in">
+    <div >
+      <div className="card card-border bg-base-100 w-full  " data-aos="zoom-in">
         <div className="card-body">
           <div className="mx-auto">
             <img
