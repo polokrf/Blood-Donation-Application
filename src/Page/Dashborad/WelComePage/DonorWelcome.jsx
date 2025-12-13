@@ -133,7 +133,8 @@ const DonorWelcome = () => {
                       </td>
 
                       <td>
-                        {donation?.status === 'pending' && (
+                        {(donation?.status === 'pending' ||
+                          donation?.status === 'inprogress') && (
                           <div className="dropdown dropdown-end ">
                             <button
                               tabIndex={0}
@@ -147,58 +148,65 @@ const DonorWelcome = () => {
                               tabIndex="-1"
                               className="dropdown-content menu bg-black rounded-box z-1 w-52 p-2 shadow-sm"
                             >
-                              <li>
-                                <Link
-                                  className="btn btn-xs mb-3 btn-info text-white"
-                                  to={`/dashboard/edit/${donation._id}`}
-                                >
-                                  Edit
-                                </Link>
-                              </li>
-                              <li>
-                                <button
-                                  onClick={() => handleDelete(donation)}
-                                  className="btn btn-xs mb-3  btn-info text-white"
-                                >
-                                  Delete
-                                </button>
-                              </li>
-                              <li>
-                                <Link
-                                  className="btn btn-xs mb-3  btn-info text-white"
-                                  to={`/dashboard/view/${donation._id}`}
-                                >
-                                  View
-                                </Link>
-                              </li>
+                              {donation.status === 'pending' && (
+                                <div>
+                                  <li>
+                                    <Link
+                                      className="btn btn-xs mb-3 btn-info text-white"
+                                      to={`/dashboard/edit/${donation._id}`}
+                                    >
+                                      Edit
+                                    </Link>
+                                  </li>
+                                  <li>
+                                    <button
+                                      onClick={() => handleDelete(donation)}
+                                      className="btn btn-xs mb-3  btn-info text-white"
+                                    >
+                                      Delete
+                                    </button>
+                                  </li>
+                                  <li>
+                                    <Link
+                                      className="btn btn-xs mb-3  btn-info text-white"
+                                      to={`/dashboard/view/${donation._id}`}
+                                    >
+                                      View
+                                    </Link>
+                                  </li>
+                                </div>
+                              )}
+                              {/* status is inprogress */}
+                              <div>
+                                {donation?.status === 'inprogress' && (
+                                  <div>
+                                    <li>
+                                      <button
+                                        onClick={() =>
+                                          hnadleStatusDone(donation._id)
+                                        }
+                                        className="btn btn-xs mb-3  btn-info text-white"
+                                      >
+                                        Done
+                                      </button>
+                                    </li>
+                                    <li>
+                                      <button
+                                        onClick={() =>
+                                          hnadleStatusCancel(donation._id)
+                                        }
+                                        className="btn btn-xs mb-3  btn-info text-white"
+                                      >
+                                        Cancel
+                                      </button>
+                                    </li>
+                                  </div>
+                                )}
+                              </div>
                             </ul>
                           </div>
                         )}
-                        {/* status is inprogress */}
-                        <div>
-                          {donation?.status === 'inprogress' && (
-                            <div>
-                              <li>
-                                <button
-                                  onClick={() => hnadleStatusDone(donation._id)}
-                                  className="btn btn-xs mb-3  btn-info text-white"
-                                >
-                                  Done
-                                </button>
-                              </li>
-                              <li>
-                                <button
-                                  onClick={() =>
-                                    hnadleStatusCancel(donation._id)
-                                  }
-                                  className="btn btn-xs mb-3  btn-info text-white"
-                                >
-                                  Cancel
-                                </button>
-                              </li>
-                            </div>
-                          )}
-                        </div>
+
                         {/* status is done  */}
                         <div>
                           {(donation.status === 'done' ||
