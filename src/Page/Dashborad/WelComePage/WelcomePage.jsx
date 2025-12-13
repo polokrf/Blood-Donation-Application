@@ -4,10 +4,11 @@ import DonorWelcome from './DonorWelcome';
 import AdminWelcome from './AdminWelcome';
 
 const WelcomePage = () => {
-  const role = useRole()
+  const role = useRole();
+  console.log(role)
   return (
     <div>
-      {role === 'Donor' ?<DonorWelcome></DonorWelcome>:<AdminWelcome></AdminWelcome>}
+      {role.role === 'Donor' ?<DonorWelcome></DonorWelcome>:<AdminWelcome></AdminWelcome>}
     </div>
   );
 };

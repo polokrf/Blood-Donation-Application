@@ -3,7 +3,8 @@ import { Link } from 'react-router';
 import Banner from './Banner';
 import Feature from './Feature';
 import Form from './Form';
-const featureData = fetch('/Feature.json').then(res => res.json())
+
+const featureData = fetch('/Feature.json').then(res => res.json());
 const Home = () => {
   return (
     <div>

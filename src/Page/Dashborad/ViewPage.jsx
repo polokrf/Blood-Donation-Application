@@ -3,18 +3,21 @@ import React from 'react';
 import { useParams } from 'react-router';
 import useAxios from '../../Hook/useAxios';
 import { MdBloodtype } from 'react-icons/md';
+import Loader from '../../LodingAndErrorPage/Loader';
 
 const ViewPage = () => {
   const { id } = useParams();
   const instance =useAxios()
-  const { data: view ={} } = useQuery({
+  const { data: view ={},isLoading } = useQuery({
     queryKey: ['view', id],
     queryFn: async () => {
       const res = await instance.get(`/one-donationInfo/${id}`);
       return res.data
     }
   })
-console.log(view)
+  if (isLoading) {
+  return <Loader></Loader>
+}
   return (
     <div className="my-[60px] md:max-w-[500px] w-full mx-auto p-2">
       <div className="text-center my-10">

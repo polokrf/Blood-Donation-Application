@@ -4,6 +4,7 @@ import useAxios from '../../Hook/useAxios';
 import { HiDotsHorizontal } from 'react-icons/hi';
 import { Link } from 'react-router';
 import { MdBloodtype } from 'react-icons/md';
+import Loader from '../../LodingAndErrorPage/Loader';
 
 const BloodDonationRequests = () => {
   const instance = useAxios()
@@ -13,7 +14,7 @@ const BloodDonationRequests = () => {
     
 
   const status='pending'
-  const { data:pendingData =[] } = useQuery({
+  const { data:pendingData =[] ,isLoading} = useQuery({
     queryKey: ['all-pending', status,limit,currentPage],
     queryFn:async () => {
       const res = await instance.get(`/pending-donation?status=${status}&limit=${limit}&skip=${currentPage * limit}`);
@@ -23,6 +24,9 @@ const BloodDonationRequests = () => {
     }
 
   })
+  if (isLoading) {
+    return <Loader></Loader>
+  }
   
   return (
     <div className="linerBg ">

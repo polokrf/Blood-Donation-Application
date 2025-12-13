@@ -6,6 +6,7 @@ import useAuth from '../../Hook/useAuth';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { MdBloodtype } from 'react-icons/md';
+import Loader from '../../LodingAndErrorPage/Loader';
 
 const DonationDetails = () => {
   const { id } = useParams();
@@ -14,14 +15,14 @@ const DonationDetails = () => {
   const { user } = useAuth();
   const navigate=useNavigate()
 
-  const { data:donation={}} = useQuery({
+  const { data:donation={},isLoading} = useQuery({
     queryKey: ['one-data', id],
     queryFn: async () => {
       const res = await instance.get(`/one-donationInfo/${id}`);
        return res.data
     }
   })
- console.log(donation)
+ 
 
   const {register,handleSubmit}=useForm()
 
@@ -39,6 +40,9 @@ const DonationDetails = () => {
       .catch(err => {
         console.lof(err);
       });
+  }
+  if (isLoading) {
+    return <Loader></Loader>
   }
   return (
     <div className=" sm:max-w-[500px]  w-full mx-auto mb-[60px] md:mt-[75px] mt-[60px] p-1">

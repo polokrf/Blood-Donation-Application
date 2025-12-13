@@ -7,6 +7,7 @@ import { Link } from 'react-router';
 
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
+import Loader from '../../LodingAndErrorPage/Loader';
 
 const MyDonationRequests = () => {
   const { user } = useAuth();
@@ -17,7 +18,7 @@ const MyDonationRequests = () => {
     const [totalPage, setTotalPage] = useState(0);
     const [currentPage,setCurrentPage]=useState(0)
   
-  const { data:myDonation=[], refetch } = useQuery({
+  const { data:myDonation=[], refetch ,isLoading} = useQuery({
     queryKey: ['my-donation-requests', user?.email,statusF,limit,currentPage],
     queryFn: async () => {
       const res = await instance.get(`/my-donation-request?email=${user?.email}&filter=${statusF}&limit=${limit}&skip=${currentPage * limit}`);
@@ -80,6 +81,9 @@ const MyDonationRequests = () => {
     statusUpdate(id,'canceled')
   }
   
+  if (isLoading) {
+    return <Loader></Loader>
+  }
 
   return (
     <div>

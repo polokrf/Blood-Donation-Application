@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import useAxios from '../../../Hook/useAxios';
 import { FaHandHoldingHeart } from 'react-icons/fa';
 import { useQuery } from '@tanstack/react-query';
+import Loader from '../../../LodingAndErrorPage/Loader';
 
 const Funding = () => {
   const modalRef = useRef();
@@ -11,7 +12,7 @@ const Funding = () => {
   const {register,handleSubmit}=useForm()
   const { user } = useAuth();
 
-  const { data: fundData = [] } = useQuery({
+  const { data: fundData = [] ,isLoading} = useQuery({
     queryKey: ['funding-data'],
     queryFn: async () => {
       const res = await instance.get('/fund-user');
@@ -37,6 +38,9 @@ const Funding = () => {
       }).catch(err => {
       console.log(err)
     })
+  }
+  if (isLoading) {
+    return <Loader></Loader>
   }
   return (
     <div className="px-2">

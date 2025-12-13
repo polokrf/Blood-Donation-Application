@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import useAxios from '../../Hook/useAxios';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import Loader from '../../LodingAndErrorPage/Loader';
 
 
 const MyProfile = () => {
@@ -12,7 +13,7 @@ const MyProfile = () => {
   const [state, setState] = useState(true);
 
   const {register,handleSubmit}=useForm()
-  const { data:myProfile={} } = useQuery({
+  const { data:myProfile={},isLoading } = useQuery({
     queryKey: ['my-profile', user?.email],
     queryFn: async () => {
       const res = await instance.get(`/my-profile-data?email=${user?.email}`);
@@ -56,6 +57,10 @@ const MyProfile = () => {
   const handelEdite = (e) => {
     e.preventDefault();
     setState(false)
+  }
+
+  if (isLoading) {
+    return <Loader></Loader>
   }
   
   return (

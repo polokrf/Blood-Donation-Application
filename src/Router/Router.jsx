@@ -22,6 +22,7 @@ import SearchPage from "../Page/Home/SearchPage";
 import BloodDonationRequests from "../Page/Home/BloodDonationRequests";
 import DonationDetails from "../Page/Home/DonationDetails ";
 import WelcomePage from "../Page/Dashborad/WelComePage/WelcomePage";
+import ErrorPage from "../LodingAndErrorPage/ErrorPage";
 
 
 
@@ -30,7 +31,7 @@ export const router = createBrowserRouter([
   {
     path: '/',
     Component: Root,
-    errorElement: <p>Error</p>,
+    errorElement:<ErrorPage></ErrorPage>,
     children: [
       {
         index: true,
@@ -71,7 +72,7 @@ export const router = createBrowserRouter([
         <Dashboard></Dashboard>
       </PrivetRouters>
     ),
-    errorElement: <p>error</p>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         index: 'dashboard',

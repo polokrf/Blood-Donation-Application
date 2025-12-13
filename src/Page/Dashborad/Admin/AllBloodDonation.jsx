@@ -6,6 +6,7 @@ import { Link } from 'react-router';
 import { HiDotsHorizontal } from 'react-icons/hi';
 import useRole from '../../../Hook/useRole';
 import { toast } from 'react-toastify';
+import Loader from '../../../LodingAndErrorPage/Loader';
 
 const AllBloodDonation = () => {
   const instance = useAxios();
@@ -14,7 +15,7 @@ const AllBloodDonation = () => {
   const [totalPage, setTotalPage] = useState(0);
   const [currentPage,setCurrentPage]=useState(0)
   const {role}=useRole()
-  const { data: allDOnation = [] ,refetch} = useQuery({
+  const { data: allDOnation = [] ,refetch,isLoading} = useQuery({
     queryKey: ['all-donation-request',statusF,limit,currentPage],
     queryFn: async () => {
       const res = await instance.get(`/all-blood-donation-request?status=${statusF}&limit=${limit}&skip=${currentPage * limit}`)
@@ -74,7 +75,9 @@ const AllBloodDonation = () => {
       statusUpdate(id,'canceled')
     }
     
-  
+  if (isLoading) {
+    return <Loader></Loader>
+  }
 
   return (
     <div>
@@ -211,7 +214,7 @@ const AllBloodDonation = () => {
                                   </div>
                                 )}
                               </div>
-                             
+
                               {/* status is done or canceled */}
                               <div>
                                 {(donation.status === 'done' ||
@@ -223,25 +226,34 @@ const AllBloodDonation = () => {
                               {donation?.status === 'inprogress' && (
                                 <div>
                                   <li>
-                                    <button className="btn btn-xs mb-3  btn-info text-white">
+                                    <button
+                                      onClick={() =>
+                                        hnadleStatusDone(donation._id)
+                                      }
+                                      className="btn btn-xs mb-3  btn-info text-white"
+                                    >
                                       Done
                                     </button>
                                   </li>
                                   <li>
-                                    <button className="btn btn-xs mb-3  btn-info text-white">
+                                    <button
+                                      onClick={() =>
+                                        hnadleStatusCancel(donation._id)
+                                      }
+                                      className="btn btn-xs mb-3  btn-info text-white"
+                                    >
                                       Canceled
                                     </button>
                                   </li>
                                 </div>
-                                  )}
-                                  
-                                  {/* status is done or canceled */}
+                              )}
+
+                              {/* status is done or canceled */}
                               <div>
                                 {(donation.status === 'done' ||
                                   donation.status === 'canceled') && <p>--</p>}
                               </div>
                             </div>
-                                 
                           )}
                         </ul>
                       </div>

@@ -3,6 +3,7 @@ import useAxios from '../../../Hook/useAxios';
 import { useQuery } from '@tanstack/react-query';
 import { HiOutlineDotsVertical } from 'react-icons/hi';
 import { toast } from 'react-toastify';
+import Loader from '../../../LodingAndErrorPage/Loader';
 
 const AllUsers = () => {
   const instance = useAxios();
@@ -11,7 +12,7 @@ const AllUsers = () => {
   const [allUSersCount, setAllUsersCount] = useState();
   const [totalPage,setTotalPage]=useState(0)
   const [currentPage,setCurrentPage]=useState(0)
-  const { data: users = [] ,refetch} = useQuery({
+  const { data: users = [] ,refetch,isLoading} = useQuery({
     queryKey: ['all-users',userStatus,limit,currentPage],
     queryFn: async () => {
       const res = await instance.get(`/all-users?status=${userStatus}&limit=${limit}&skip=${currentPage * limit }`)
@@ -62,6 +63,9 @@ const AllUsers = () => {
   }
   const handleBlock = (id) => {
      statusUpdate(id, 'Blocked');
+  }
+  if (isLoading) {
+    return <Loader></Loader>
   }
   return (
     <div>
