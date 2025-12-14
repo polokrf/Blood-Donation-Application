@@ -2,8 +2,8 @@ import React from 'react';
 import DonationDetails from './DonationDetails ';
 import { MdBloodtype } from 'react-icons/md';
 
-const SearchDonor = ({ donor }) => {
-  console.log(donor)
+const SearchDonor = ({ donor}) => {
+ 
   return (
     <div >
       <div className="card card-border bg-base-100 w-full  " data-aos="zoom-in">

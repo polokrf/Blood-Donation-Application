@@ -5,6 +5,7 @@ import { useLoaderData } from 'react-router';
 import { useForm, useWatch } from 'react-hook-form';
 import SearchDonor from './SearchDonor';
 
+
 const upazailaData = fetch('/upazaila.json').then(res => res.json());
 const SearchPage = () => {
   const instance = useAxios();
@@ -15,7 +16,7 @@ const SearchPage = () => {
     register,
     handleSubmit,
     control,
-    formState: { errors },
+    
   } = useForm();
 
   const district = useWatch({ control, name: 'district' });
@@ -29,32 +30,33 @@ const SearchPage = () => {
   const [blood, setBlood] = useState();
   const [districts, setDistricts] = useState();
   const [upazila, setUpazila] = useState();
-  const [role, setRole] = useState();
+  
 
   const handleSearch = (data) => {
     if (data) {
      setBlood(data.blood_group);
-     setUpazila(data.district);
-     setDistricts(data.upazaila);
-     setRole('Donor');
+     setUpazila(data.upazaila);
+     setDistricts(data.district);
+     
    }
     
-   
+  
     
   }
  
  
 
   const { data: searchValue=[] } = useQuery({
-    queryKey: ['search-page', blood, districts, upazila,  role],
+    queryKey: ['search-page', blood, districts, upazila],
+    enabled:!!blood || !!districts || !!upazila,
     queryFn: async () => {
-      const res = await instance.get(`/search?blood_group=${blood}&&district=${districts}&&upazaila=${upazila}&&role=${role}`
+      const res = await instance.get(`/search?blood_group=${blood}&district=${districts}&upazaila=${upazila}`
       );
-      return res.data;
+     return res.data || []
     },
   });
-
-  console.log(searchValue)
+ 
+ 
   return (
     <div className="   p-2 linerBg  min-h-screen">
       <div className="text-center mb-[45px]">
@@ -78,7 +80,7 @@ const SearchPage = () => {
               defaultValue="select blood group"
               className="select"
             >
-              <option selected>select group</option>
+              <option value=''>select group</option>
               <option value={'A+'}>A+</option>
               <option value={'A-'}>A-</option>
               <option value={'B+'}>B+</option>
@@ -97,7 +99,7 @@ const SearchPage = () => {
               {...register('district', { required: true })}
               className="select"
             >
-              <option selected> select District</option>
+              <option value=''> select District</option>
               {districtData.map(d => (
                 <option key={d.id} value={d.name}>
                   {d?.name}
@@ -111,7 +113,7 @@ const SearchPage = () => {
             <label className=" block mb-2">Upazila</label>
             <div className="flex  ">
               <select {...register('upazaila')} className="select mr-2">
-                <option selected> select Upazila</option>
+                <option value=''> select Upazila</option>
                 {filterUpazaila.map(upa => (
                   <option key={upa.id} value={upa.name}>
                     {upa?.name}
