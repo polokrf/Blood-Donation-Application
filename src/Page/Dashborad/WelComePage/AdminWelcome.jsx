@@ -4,6 +4,7 @@ import { FaDonate, FaUserInjured, FaUsers } from 'react-icons/fa';
 import { useQuery } from '@tanstack/react-query';
 import useAxios from '../../../Hook/useAxios';
 import { MdBloodtype } from 'react-icons/md';
+import Loader from '../../../LodingAndErrorPage/Loader';
 
 const AdminWelcome = () => {
   const { user } = useAuth();
@@ -12,7 +13,7 @@ const AdminWelcome = () => {
   const [totalAmount,setTotalAmount] =useState()
   const [totalRequest,setTotalRequest] =useState()
 
-  const { data } = useQuery({
+  const { data ,isLoading} = useQuery({
     queryKey: ['dashboard-stats'],
     queryFn: async () => {
       const res = await instance.get('/dashboard-stats');
@@ -22,6 +23,10 @@ const AdminWelcome = () => {
       return res.data
     }
   });
+
+  if (isLoading) {
+    return <Loader></Loader>
+  }
   
   return (
     <div className="bg-linear-to-br  from-[#1E3A8A] via-[#2563EB] to-[#3B82F6] min-h-screen flex flex-col justify-center items-center">
