@@ -10,9 +10,13 @@ import 'aos/dist/aos.css';
   });
 const Root = () => {
   return (
-    <div className='flex flex-col min-h-screen  overflow-hidden'>
-      <Header></Header> 
-      <div className='flex-1'><Outlet></Outlet></div>
+    <div className="flex flex-col min-h-screen  ">
+      <div className="sticky top-0 z-10 ">
+        <Header></Header>
+      </div>
+      <div className="flex-1 md:max-w-[1300px] mx-auto w-full">
+        <Outlet></Outlet>
+      </div>
       <Footer></Footer>
     </div>
   );

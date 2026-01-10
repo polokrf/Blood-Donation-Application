@@ -51,15 +51,15 @@ const CreateDonation = () => {
   }
  
   return (
-    <div className="linerBg ">
-      <div className="text-center">
-        <h1 className='text-2xl text-red-950 font-bold capitalize mb-2'>Create a Blood Donation Request</h1>
-        <p className='text-red-800'>
+    <div className=" my-[60px] p-2">
+      <div className="text-center ">
+        <h1 className='titles capitalize mb-2'>Create a Blood Donation Request</h1>
+        <p >
           Fill out the form below to request blood for a recipient. Make sure
           all details are accurate so donors can respond quickly.
         </p>
       </div>
-      <div className="md:max-w-[580px] bg-base-100 w-full mx-auto p-3 shadow-sm my-[60px] ">
+      <div className="md:max-w-[580px] bg-base-100 w-full mx-auto p-3 shadow-sm my-[60px] rounded-xl ">
         <form
           onSubmit={handleSubmit(handleDonation)}
           className="fieldset bg-gray-100 p-3"

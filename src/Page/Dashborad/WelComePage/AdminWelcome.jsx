@@ -5,6 +5,10 @@ import { useQuery } from '@tanstack/react-query';
 import useAxios from '../../../Hook/useAxios';
 import { MdBloodtype } from 'react-icons/md';
 import Loader from '../../../LodingAndErrorPage/Loader';
+import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts';
+import { RechartsDevtools } from '@recharts/devtools';
+
+
 
 const AdminWelcome = () => {
   const { user } = useAuth();
@@ -12,7 +16,12 @@ const AdminWelcome = () => {
   const [totalDonors,setTotalDonors] =useState()
   const [totalAmount,setTotalAmount] =useState()
   const [totalRequest,setTotalRequest] =useState()
-
+  
+  const dataInfo = [
+    {name:'Donors',value:totalDonors},
+    {name:'Amount',value:totalAmount},
+    {name:'Request',value:totalRequest}
+  ]
   const { data ,isLoading} = useQuery({
     queryKey: ['dashboard-stats'],
     queryFn: async () => {
@@ -23,7 +32,7 @@ const AdminWelcome = () => {
       return res.data
     }
   });
-
+  
   if (isLoading) {
     return <Loader></Loader>
   }
@@ -46,31 +55,70 @@ const AdminWelcome = () => {
       </div>
 
       {/* users amount donation all count */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3" data-aos="fade-up">
-        <div className=" bg-blue-800 p-3 text-center text-white shadow-xl transform hover:scale-115 transition duration-500 rounded-xl">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-[25px]" data-aos="fade-up">
+        <div className=" bg-blue-800 p-3 text-center text-white shadow-xl transform hover:scale-115 transition duration-500 rounded-xl cursor-pointer">
           <h2 className="title">
-            <FaUsers className='inline-block' /> Total-Donors
+            <FaUsers className="inline-block" /> Total-Donors
           </h2>
           <h3 className="stat-value">{totalDonors}</h3>
         </div>
 
-        <div className="bg-blue-800 p-3 text-center text-white shadow-xl transform hover:scale-115 transition duration-500 rounded-xl">
+        <div className="bg-blue-800 p-3 text-center text-white shadow-xl transform hover:scale-115 transition duration-500 rounded-xl cursor-pointer">
           <h2 className="title">
             {' '}
-            <FaDonate className='inline-block text-amber-300' />
+            <FaDonate className="inline-block text-amber-300" />
             Total-Funding
           </h2>
           <h3 className="stat-value text-secondary">{totalAmount} TK</h3>
         </div>
 
-        <div className="bg-blue-800 p-3 text-center text-white shadow-xl transform hover:scale-115 transition duration-500 rounded-xl">
+        <div className="bg-blue-800 p-3 text-center text-white shadow-xl transform hover:scale-115 transition duration-500 rounded-xl cursor-pointer">
           <h2 className="title text-white">
-            <MdBloodtype className='inline-block text-red-500' /> Total Donation Request
+            <MdBloodtype className="inline-block text-red-500" /> Total Donation
+            Request
           </h2>
           <h3 className="stat-value">{totalRequest}</h3>
         </div>
       </div>
-    </div>
+
+      {/* reChart */}
+      
+        <LineChart
+          style={{ width: '100%', aspectRatio: 1.618, maxWidth: 600 }}
+          responsive
+          data={dataInfo}
+          margin={{
+            top: 20,
+            right: 20,
+            bottom: 5,
+            left: 0,
+          }}
+        >
+          <CartesianGrid stroke="#58B19F" strokeDasharray="5 5" />
+          <Line
+            type="monotone"
+            dataKey="value"
+            stroke="#55E6C1"
+            strokeWidth={2}
+            name="total"
+          />
+          <XAxis dataKey="name" stroke="#ffff" />
+          <YAxis
+            width="auto"
+            label={{
+              value: 'value',
+
+              position: 'insideLeft',
+              angle: -90,
+            }}
+            stroke="#ffff"
+          />
+          <Legend align="right" />
+          <Tooltip />
+          <RechartsDevtools></RechartsDevtools>
+        </LineChart>
+      </div>
+    
   );
 };
 

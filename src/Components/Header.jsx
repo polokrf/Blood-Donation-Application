@@ -2,6 +2,9 @@ import React from 'react';
 import { Link, NavLink } from 'react-router';
 import useAuth from '../Hook/useAuth';
 import { toast } from 'react-toastify';
+import { AiTwotoneHome } from 'react-icons/ai';
+import { MdBloodtype } from 'react-icons/md';
+import { RiSecurePaymentFill } from 'react-icons/ri';
 
 const Header = () => {
 
@@ -9,18 +12,25 @@ const Header = () => {
   
   const navbare = (
     <>
-      <li>
-        <NavLink to="/">Home</NavLink>
+      <li className="hoversH">
+        <NavLink to="/">
+          <AiTwotoneHome />
+          Home
+        </NavLink>
       </li>
-      <li>
-        <NavLink to="/blood-donation">Blood-Donation</NavLink>
+      <li className="hoversH">
+        <NavLink to="/blood-donation">
+          <MdBloodtype />
+          Blood-Donation
+        </NavLink>
       </li>
       {user && (
-        <li>
-          <NavLink to="/dashboard/founding">Funding</NavLink>
+        <li className="hoversH">
+          <NavLink to="/dashboard/founding">
+            <RiSecurePaymentFill />
+            Funding</NavLink>
         </li>
       )}
-      
     </>
   );
 
@@ -32,8 +42,8 @@ const Header = () => {
     })
   }
   return (
-    <div>
-      <div className="navbar  shadow-sm">
+    <div className=" w-full  shadow-sm  bg-base-100">
+      <div className=" navbar md:max-w-[1300px] w-full mx-auto">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -72,13 +82,13 @@ const Header = () => {
 
         <div className="navbar-end">
           {user ? (
-            <div className="dropdown dropdown-end">
+            <div className="dropdown dropdown-end z-10 ">
               <div>
                 <img
                   src={user?.photoURL}
                   alt=""
                   tabIndex={0}
-                  className="w-[50px] h-[50px] object-cover rounded-full"
+                  className="w-[50px] h-[50px] object-cover rounded-full cursor-pointer"
                 />
               </div>
               <ul

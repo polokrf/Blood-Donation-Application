@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import useAuth from '../../../Hook/useAuth';
 import { useForm } from 'react-hook-form';
 import useAxios from '../../../Hook/useAxios';
@@ -11,15 +11,25 @@ const Funding = () => {
   const instance =useAxios()
   const {register,handleSubmit}=useForm()
   const { user } = useAuth();
+  const [sort, setSort] = useState('amount_total');
+  const [order, setOrder] = useState('asc');
+  const [totalPage, setTotalPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
+  const limit = 6;
 
   const { data: fundData = [] ,isLoading} = useQuery({
-    queryKey: ['funding-data'],
+    queryKey: ['funding-data',sort,order,limit,currentPage],
     queryFn: async () => {
-      const res = await instance.get('/fund-user');
-      return res.data
+      const res = await instance.get(
+        `/fund-user?sort=${sort}&order=${order}&limit=${limit}&skip=${currentPage * limit}`
+      );
+      const total = res.data.count / limit;
+      setTotalPage(Math.ceil(total));
+      
+      return res.data.result
     }
   })
-  console.log(fundData)
+
   const handleOpenMOdal = () => {
     modalRef.current.showModal()
   }
@@ -39,42 +49,62 @@ const Funding = () => {
       console.log(err)
     })
   }
-  if (isLoading) {
-    return <Loader></Loader>
+  const handleSort = (e) => {
+    const order=e.target.value.split('-')[0]
+    const sort = e.target.value.split('-')[1];
+    setSort(sort);
+    setOrder(order)
   }
+  
   return (
     <div className="px-2">
       <div className="text-center my-[45px] ">
-        <h1 className="text-2xl font-bold text-red-950 capitalize mb-3">
-          {' '}
-          Support Our Cause
-        </h1>
-        <p className="text-red-700">
+        <h1 className=" titles capitalize mb-3"> Support Our Cause</h1>
+        <p>
           See all contributions made by our supporters and make a donation to
           help our organization grow
         </p>
       </div>
+
       {/* fount table and button */}
       <div className="md:max-w-[900px] mx-auto w-full">
-        <div className="mb-3">
+        {/* give many */}
+        <div className="mb-3 flex  items-center justify-between gap-3">
           <button
             onClick={handleOpenMOdal}
             className="btn btn-info  text-white capitalize"
           >
             Keep a give fund
           </button>
+          {/* sort */}
+          <div className="my-4  ">
+            <select onClick={handleSort} className=" select w-full">
+              <option value="asc-amount_total">Amount-asc</option>
+              <option value="desc-amount_total">Amount-desc</option>
+              <option value="asc-paymentAt">Date-asc</option>
+              <option value="desc-paymentAt">Date-desc</option>
+            </select>
+          </div>
         </div>
+        {isLoading && (
+          <div className=" mx-auto w-[150px] flex justify-center">
+            <Loader></Loader>
+          </div>
+        )}
         <div className="overflow-x-auto mb-15">
           <table className="table ">
             {/* head */}
-            <thead className="bg-green-100 text-blue-500">
-              <tr>
-                <th>SL</th>
-                <th>Name</th>
-                <th>Amount</th>
-                <th>Date</th>
-              </tr>
-            </thead>
+            {isLoading || (
+              <thead className="bg-green-100 text-blue-500">
+                <tr>
+                  <th>SL</th>
+                  <th>Name</th>
+                  <th>Amount</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+            )}
+
             <tbody>
               {/* row 1 */}
               {fundData.map((fund, i) => (
@@ -132,6 +162,33 @@ const Funding = () => {
           </div>
         </div>
       </dialog>
+      {/* pagination */}
+      <div className=" text-center space-x-2">
+        {currentPage > 0 && (
+          <button
+            onClick={() => setCurrentPage(currentPage - 1)}
+            className=" btn"
+          >
+            Prev
+          </button>
+        )}
+        {[...Array(totalPage).keys()].map(i => (
+          <button
+            onClick={() => setCurrentPage(i)}
+            className={`btn ${i === currentPage && 'btn-info text-white'}`}
+          >
+            {i + 1}
+          </button>
+        ))}
+        {currentPage < totalPage - 1 && (
+          <button
+            onClick={() => setCurrentPage(currentPage + 1)}
+            className=" btn"
+          >
+            Next
+          </button>
+        )}
+      </div>
     </div>
   );
 };

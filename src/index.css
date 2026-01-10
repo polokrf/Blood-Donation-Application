@@ -8,7 +8,7 @@
   name: "light";
   default: true;
   --color-primary:teal ;
-  --color-secondary:  red;
+  --color-secondary:  #1289A7;
 }
 
 *{
@@ -26,5 +26,17 @@
    @apply bg-linear-to-r from-red-100 to-red-50 md:py-8
 }
 a.active{
-   @apply bg-red-400 text-white
+   @apply  text-indigo-900 font-bold  
+}
+.hoversH{
+   @apply  hover:animate-pulse duration-500
+}
+.smp{
+   @apply p-2 mb-[25px]
+}
+.listi{
+   @apply  space-y-2
+}
+.titles{
+@apply  font-bold md:text-3xl text-2xl text-red-950 mb-2
 }

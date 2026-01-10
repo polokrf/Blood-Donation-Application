@@ -78,18 +78,16 @@ const AllBloodDonation = () => {
       statusUpdate(id,'canceled')
     }
     
-  if (isLoading) {
-    return <Loader></Loader>
-  }
+  
 
   return (
     <div>
       <div className="md:max-w-[1400px] w-full mx-auto py-[60px] px-2">
         <div className="text-center my-10">
-          <h1 className="text-2xl text-red-950 font-bold capitalize mb-2">
+          <h1 className="titles capitalize mb-2">
             All Blood Donation Requests
           </h1>
-          <p className="text-red-700">
+          <p>
             Manage and track blood donation requests. Admins have full control,
             while volunteers can view requests and update donation status.
           </p>
@@ -109,26 +107,29 @@ const AllBloodDonation = () => {
             <option value="canceled">canceled</option>
           </select>
         </div>
+        {isLoading && <Loader></Loader>}
         <div className="overflow-x-auto">
           <table className="table table-sm">
-            <thead className="bg-red-500 text-white">
-              <tr>
-                <th>SL</th>
-                <th>Requester Name</th>
-                <th>
-                  <p>Location</p>( District, Upazila)
-                </th>
-                <th>Donation Date</th>
-                <th>Donation Time</th>
-                <th>Blood Group</th>
-                <th>Status</th>
-                <th>
-                  <p>Donor</p>
-                  (Name, Email)
-                </th>
-                <th>Action</th>
-              </tr>
-            </thead>
+            {isLoading || (
+              <thead className="bg-red-500 text-white">
+                <tr>
+                  <th>SL</th>
+                  <th>Requester Name</th>
+                  <th>
+                    <p>Location</p>( District, Upazila)
+                  </th>
+                  <th>Donation Date</th>
+                  <th>Donation Time</th>
+                  <th>Blood Group</th>
+                  <th>Status</th>
+                  <th>
+                    <p>Donor</p>
+                    (Name, Email)
+                  </th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+            )}
             <tbody>
               {allDOnation.map((donation, i) => (
                 <tr key={donation._id} className="hover:bg-gray-100">
@@ -167,8 +168,8 @@ const AllBloodDonation = () => {
                                   <li>
                                     <Link
                                       className="btn btn-xs mb-3 btn-info text-white"
-                                        to={`/dashboard/edit/${donation._id}`}
-                                        state={location.pathname}
+                                      to={`/dashboard/edit/${donation._id}`}
+                                      state={location.pathname}
                                     >
                                       Edit
                                     </Link>

@@ -4,6 +4,8 @@ import useAxios from '../../Hook/useAxios';
 import { useLoaderData } from 'react-router';
 import { useForm, useWatch } from 'react-hook-form';
 import SearchDonor from './SearchDonor';
+import Loader from '../../LodingAndErrorPage/Loader';
+import { FaUsersSlash } from 'react-icons/fa';
 
 
 const upazailaData = fetch('/upazaila.json').then(res => res.json());
@@ -46,7 +48,7 @@ const SearchPage = () => {
  
  
 
-  const { data: searchValue=[] } = useQuery({
+  const { data: searchValue=[],isLoading } = useQuery({
     queryKey: ['search-page', blood, districts, upazila],
     enabled:!!blood || !!districts || !!upazila,
     queryFn: async () => {
@@ -58,7 +60,7 @@ const SearchPage = () => {
  
  
   return (
-    <div className="   p-2 linerBg  min-h-screen">
+    <div className="   p-2   min-h-screen">
       <div className="text-center mb-[45px]">
         <h1 className="text-red-950 font-bold md:text-3xl text-2xl  capitalize mb-3">
           Find Blood Donors Near You
@@ -80,7 +82,7 @@ const SearchPage = () => {
               defaultValue="select blood group"
               className="select"
             >
-              <option value=''>select group</option>
+              <option value="">select group</option>
               <option value={'A+'}>A+</option>
               <option value={'A-'}>A-</option>
               <option value={'B+'}>B+</option>
@@ -99,7 +101,7 @@ const SearchPage = () => {
               {...register('district', { required: true })}
               className="select"
             >
-              <option value=''> select District</option>
+              <option value=""> select District</option>
               {districtData.map(d => (
                 <option key={d.id} value={d.name}>
                   {d?.name}
@@ -113,7 +115,7 @@ const SearchPage = () => {
             <label className=" block mb-2">Upazila</label>
             <div className="flex  ">
               <select {...register('upazaila')} className="select mr-2">
-                <option value=''> select Upazila</option>
+                <option value=""> select Upazila</option>
                 {filterUpazaila.map(upa => (
                   <option key={upa.id} value={upa.name}>
                     {upa?.name}
@@ -138,11 +140,23 @@ const SearchPage = () => {
             </h1>
           </div>
         )}
-        <div className="grid  grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 md:grid-cols-2  justify-center items-center gap-3 pb-4 ">
-          {searchValue.map(donor => (
-            <SearchDonor key={donor?._id} donor={donor}></SearchDonor>
-          ))}
-        </div>
+
+        {isLoading && <Loader></Loader>}
+
+        {searchValue.length === 0 && !isLoading ? (
+          <div className=" text-center my-45">
+            <h1 className=" text-red-700 font-bold text-3xl ">
+              {' '}
+              <FaUsersSlash className=' mx-auto' />
+            </h1>
+          </div>
+        ) : (
+          <div className="grid  grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 md:grid-cols-2  justify-center items-center gap-3 pb-4 mx-auto">
+            {searchValue.map(donor => (
+              <SearchDonor key={donor?._id} donor={donor}></SearchDonor>
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );

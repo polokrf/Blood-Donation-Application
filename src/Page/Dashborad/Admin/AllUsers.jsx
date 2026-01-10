@@ -64,17 +64,15 @@ const AllUsers = () => {
   const handleBlock = (id) => {
      statusUpdate(id, 'Blocked');
   }
-  if (isLoading) {
-    return <Loader></Loader>
-  }
+  
   return (
     <div>
       <div className="md:max-w-[1400px] w-full mx-auto py-[60px] px-2">
         <div className="text-center my-10">
-          <h1 className="text-2xl text-red-950 font-bold capitalize mb-2">
+          <h1 className=" titles capitalize mb-2">
             Manage All Users
           </h1>
-          <p className="text-red-700">
+          <p >
             View, filter, and manage all registered users. Block or unblock
             users, and assign roles like Volunteer or Admin with ease.
           </p>
@@ -92,20 +90,23 @@ const AllUsers = () => {
             <option value="Blocked">Blocked</option>
           </select>
         </div>
+        {isLoading && <Loader></Loader>}
         <div className="overflow-x-auto">
           <table className="table">
             {/* head */}
-            <thead className="bg-blue-400 text-white">
-              <tr>
-                <th>SL</th>
-                <th>Avatar</th>
+            {isLoading || (
+              <thead className="bg-blue-400 text-white">
+                <tr>
+                  <th>SL</th>
+                  <th>Avatar</th>
 
-                <th>email</th>
-                <th>User Role</th>
-                <th>User Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
+                  <th>email</th>
+                  <th>User Role</th>
+                  <th>User Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+            )}
             <tbody>
               {/* row 1 */}
               {users.map((u, i) => (
