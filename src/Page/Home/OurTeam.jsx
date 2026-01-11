@@ -33,7 +33,7 @@ const OurTeam = () => {
       </div>
       <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
         {imgData.map((im, i) => (
-          <div className=" shadow-sm p-2 rounded-xl hover:translate-2 duration-300  cursor-pointer">
+          <div key={i} className=" shadow-sm p-2 rounded-xl hover:translate-2 duration-300  cursor-pointer">
             <img
               key={i}
               src={im.img}

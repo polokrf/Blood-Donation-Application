@@ -6,12 +6,13 @@ import { useLocation, useNavigate } from 'react-router';
 const GoogleBtn = () => {
   const { googleLogin } = useAuth();
   const location = useLocation();
-  const navigate =useNavigate()
+  const navigate = useNavigate()
+  
   const handlGoogle = (e) =>{
     e.preventDefault();
     googleLogin().then(() => {
       toast.success('success')
-      navigate(`${location.state || '/'} `)
+      navigate(location.state  || '/')
     }).catch(err => {
       console.log(err)
     })

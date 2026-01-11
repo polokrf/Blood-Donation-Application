@@ -103,7 +103,7 @@ const Login = () => {
           <p>
             Do not have an account{' '}
             <Link
-              state={location.state}
+             
               className="text-blue-600 font-bold underline"
               to="/register"
             >
