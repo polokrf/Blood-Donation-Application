@@ -99,7 +99,7 @@ const Login = () => {
             </fieldset>
           </form>
 
-          <GoogleBtn></GoogleBtn>
+          <GoogleBtn state={location.state}></GoogleBtn>
           <p>
             Do not have an account{' '}
             <Link
