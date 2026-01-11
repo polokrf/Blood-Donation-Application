@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { MdBloodtype } from 'react-icons/md';
 import Loader from '../../LodingAndErrorPage/Loader';
+import { GrUserManager } from 'react-icons/gr';
 
 const DonationDetails = () => {
   const { id } = useParams();
@@ -27,7 +28,11 @@ const DonationDetails = () => {
   const {register,handleSubmit}=useForm()
 
   const handleOpen = () => {
-    modalOpen.current.showModal()
+    if (!user) {
+      navigate('/login')
+    }
+    modalOpen.current.showModal();
+    
   }
 
   const handleDonation = (data) => {
@@ -41,16 +46,17 @@ const DonationDetails = () => {
         console.lof(err);
       });
   }
+  const handleClick = () => {
+    navigate('/blood-donation');
+  };
   if (isLoading) {
     return <Loader></Loader>
   }
   return (
     <div className=" sm:max-w-[500px]  w-full mx-auto mb-[60px] md:mt-[75px] mt-[60px] p-1">
       <div className="my-[45px] text-center">
-        <h1 className="md:text-3xl text-2xl font-bold text-red-950 capitalize mb-3">
-          Donation Request Information
-        </h1>
-        <p className="text-red-700">
+        <h1 className="titles capitalize mb-3">Donation Request Information</h1>
+        <p>
           See all details of the blood request and contribute to save a life
         </p>
       </div>
@@ -63,9 +69,11 @@ const DonationDetails = () => {
           >
             <div className="card-body">
               {/* card title */}
+
               <div className="flex justify-between items-center mb-2">
-                <h2 className="card-title">
-                  Name : {donation?.recipient_name}
+                <h2 className="card-title ">
+                  <GrUserManager />
+                  {donation?.recipient_name}
                 </h2>
                 <span className="flex items-center">
                   <MdBloodtype style={{ color: 'red' }} />{' '}
@@ -97,8 +105,7 @@ const DonationDetails = () => {
               {/* message */}
               <div>
                 <p className="mb-2">
-                  <span className="font-semibold">Description : </span>{' '}
-                  {donation.message}
+                  <span className="font-semibold"> </span> {donation.message}
                 </p>
 
                 <p className="font-semibold mb-1">
@@ -118,6 +125,14 @@ const DonationDetails = () => {
                 >
                   Donate
                 </button>
+              
+                  <button
+                    onClick={handleClick}
+                    className=" btn btn-info  text-white "
+                  >
+                    Back
+                  </button>
+                
               </div>
             </div>
           </div>

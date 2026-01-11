@@ -10,35 +10,52 @@ const BloodDonationRequests = () => {
   const instance = useAxios()
     const limit = 10;
       const [totalPage, setTotalPage] = useState(0);
-      const [currentPage,setCurrentPage]=useState(0)
+  const [currentPage, setCurrentPage] = useState(0)
+  const [order, setOrder] = useState('desc');
+  
     
 
   const status='pending'
   const { data:pendingData =[] ,isLoading} = useQuery({
-    queryKey: ['all-pending', status,limit,currentPage],
+    queryKey: ['all-pending', status,limit,currentPage,order],
     queryFn:async () => {
-      const res = await instance.get(`/pending-donation?status=${status}&limit=${limit}&skip=${currentPage * limit}`);
+      const res = await instance.get(
+        `/pending-donation?status=${status}&limit=${limit}&skip=${
+          currentPage * limit
+        }&sort=donation_date&order=${order}`
+      );
        const page = Math.ceil(res.data.countData / limit);
        setTotalPage(page);
       return res.data.result
     }
 
   })
+ 
   if (isLoading) {
     return <Loader></Loader>
   }
   
   return (
-    <div className="linerBg ">
-      <div className="linerBg  min-h-screen p-2">
+    <div>
+      <div className="  min-h-screen p-2">
         <div className="md:max-w-[1200px] w-full mx-auto my-[45px]">
           <div className="my-[45px] text-center">
             <h1 className="md:text-3xl text-2xl font-bold text-red-950 capitalize mb-3">
               All Pending Blood Donation Requests
             </h1>
-            <p className="text-red-700">
-              View current blood requests and support patients in need
-            </p>
+            <p>View current blood requests and support patients in need</p>
+          </div>
+
+          {/* sort */}
+          <div className="my-4 text-center ">
+            <select
+              value={order}
+              onChange={e => setOrder(e.target.value)}
+              className=" select "
+            >
+              <option value="desc">Date-desc</option>
+              <option value="asc">Date-asc</option>
+            </select>
           </div>
 
           <div className="my-[45px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-center items-center  w-full gap-3 ">
@@ -50,6 +67,8 @@ const BloodDonationRequests = () => {
               >
                 <div className="card-body">
                   {/* card title */}
+                 
+                  
                   <div className="flex justify-between items-center mb-2">
                     <h2 className="card-title">
                       Name : {donation?.recipient_name}

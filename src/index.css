@@ -26,7 +26,7 @@
    @apply bg-linear-to-r from-red-100 to-red-50 md:py-8
 }
 a.active{
-   @apply  text-indigo-900 font-bold  
+   @apply  bg-linear-to-br from-teal-500 to-green-600 text-white
 }
 .hoversH{
    @apply  hover:animate-pulse duration-500

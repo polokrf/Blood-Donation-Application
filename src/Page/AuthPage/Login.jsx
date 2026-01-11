@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form';
 import useAuth from '../../Hook/useAuth';
 import { toast } from 'react-toastify';
 import { useLocation } from 'react-router';
+import GoogleBtn from './GoogleBtn';
+
 
 const Login = () => {
 
@@ -12,18 +14,16 @@ const Login = () => {
   const { login } = useAuth()
   const location = useLocation()
   const navigate = useNavigate() 
+  const [demoEmail, setDemoEmail] = useState('');
+  const [demoPass,setDemoPass]=useState('')
+
   
-
-  const {
-    register,
-    handleSubmit,
+  const handlelLogin = (e) => {
+    e.preventDefault()
+    const email = e.target.email.value
+    const password = e.target.password.value
     
-    formState: { errors },
-
-  } = useForm();
-
-  const handlelLogin = (data) => {
-    login(data.email, data.password).then(res => {
+    login(email,password).then(res => {
       toast.success('successful');
       navigate(location.state || '/')
 
@@ -32,6 +32,14 @@ const Login = () => {
     })
   }
 
+  const handleAdmin = () => {
+    setDemoEmail('ripon30@gmail.com');
+    setDemoPass('ripon@44');
+  }
+  const handleUser = () => {
+    setDemoEmail('polokkumar9030@gmail.com');
+    setDemoPass('123456')
+  }
   return (
     <div>
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl my-[60px] mx-auto">
@@ -42,24 +50,40 @@ const Login = () => {
             Get started with our app, just create an account and enjoy the
             experience.
           </span>
+
+          <div className=" space-x-2 my-3">
+            <button onClick={handleAdmin} className="btn btn-xs btn-secondary">
+              Admin
+            </button>
+            <button onClick={handleUser} className="btn btn-xs btn-secondary">
+              user
+            </button>
+          </div>
         </div>
         <div className="card-body">
-          <form onSubmit={handleSubmit(handlelLogin)}>
+          <form onSubmit={handlelLogin}>
             <fieldset className="fieldset">
               {/* email */}
               <label className="label">Email</label>
               <input
                 type="email"
-                {...register('email', { required: true })}
+                value={demoEmail}
+                onChange={e => setDemoEmail(e.target.value)}
+               name='email'
                 className="input"
+                required
                 placeholder="Email"
               />
-              {/* password */};<label className="label">Password</label>
+              {/* password */}<label className="label">Password</label>
               <div className=" relative">
                 <input
                   type={icon ? 'text' : 'password'}
                   className="input"
-                  {...register('password', { required: true })}
+                  required
+                  value={demoPass}
+                  onChange={e => setDemoPass(e.target.value)}
+                  name='password'
+                  minLength={6}
                   placeholder="Password"
                 />
 
@@ -74,9 +98,15 @@ const Login = () => {
               <button className="btn btn-info btn-outline mt-4">Login</button>
             </fieldset>
           </form>
+
+          <GoogleBtn></GoogleBtn>
           <p>
             Do not have an account{' '}
-            <Link state={location.state} className="text-blue-600 font-bold underline" to="/register">
+            <Link
+              state={location.state}
+              className="text-blue-600 font-bold underline"
+              to="/register"
+            >
               Register
             </Link>
           </p>

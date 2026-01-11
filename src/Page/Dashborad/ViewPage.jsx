@@ -1,13 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import { useParams } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
 import useAxios from '../../Hook/useAxios';
 import { MdBloodtype } from 'react-icons/md';
 import Loader from '../../LodingAndErrorPage/Loader';
+import { GrUserManager } from 'react-icons/gr';
 
 const ViewPage = () => {
   const { id } = useParams();
-  const instance =useAxios()
+  const instance = useAxios();
+  const navigate = useNavigate();
+  const location = useLocation();
+  
   const { data: view ={},isLoading } = useQuery({
     queryKey: ['view', id],
     queryFn: async () => {
@@ -15,6 +19,9 @@ const ViewPage = () => {
       return res.data
     }
   })
+  const handleClick = () => {
+    navigate(location.state);
+  }
   if (isLoading) {
   return <Loader></Loader>
 }
@@ -32,10 +39,15 @@ const ViewPage = () => {
             data-aos="fade-left"
           >
             <div className="card-body bg-blue-50">
-              <span className="font-semibold ">Status : {view.status}</span>
+              <div>
+                <span className="font-semibold mr-2"> {view.status}</span>
+                <button onClick={handleClick} className=' btn btn-info btn-xs text-white '>Back</button>
+              </div>
               {/* card title */}
               <div className="flex justify-between items-center mb-2">
-                <h2 className="card-title">Name : {view?.recipient_name}</h2>
+                <h2 className="card-title">
+                  <GrUserManager /> {view?.recipient_name}
+                </h2>
                 <span className="flex items-center">
                   <MdBloodtype style={{ color: 'red' }} /> {view?.blood_group}
                 </span>
@@ -64,7 +76,7 @@ const ViewPage = () => {
               <div>
                 <p className="mb-2">
                   {' '}
-                  <span className='font-semibold'>Description : </span> {view.message}
+                  <span className="font-semibold"> </span> {view.message}
                 </p>
 
                 <p className="font-semibold mb-1">

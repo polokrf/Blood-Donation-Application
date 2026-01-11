@@ -173,6 +173,7 @@ const DonorWelcome = () => {
                                     <Link
                                       className="btn btn-xs mb-3  btn-info text-white"
                                       to={`/dashboard/view/${donation._id}`}
+                                      state={location}
                                     >
                                       View
                                     </Link>

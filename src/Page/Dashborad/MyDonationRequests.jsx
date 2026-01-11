@@ -17,8 +17,8 @@ const MyDonationRequests = () => {
   const [statusF, setStatusF] = useState('')
    const limit = 10;
     const [totalPage, setTotalPage] = useState(0);
-    const [currentPage,setCurrentPage]=useState(0)
-  
+  const [currentPage, setCurrentPage] = useState(0)
+   
   const { data:myDonation=[], refetch ,isLoading} = useQuery({
     queryKey: ['my-donation-requests', user?.email,statusF,limit,currentPage],
     queryFn: async () => {
@@ -192,6 +192,7 @@ const MyDonationRequests = () => {
                                   <Link
                                     className="btn btn-xs mb-3  btn-info text-white"
                                     to={`/dashboard/view/${donation._id}`}
+                                    state={location}
                                   >
                                     View
                                   </Link>

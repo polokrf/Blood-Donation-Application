@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { AiTwotoneHome } from 'react-icons/ai';
 import { MdBloodtype } from 'react-icons/md';
 import { RiSecurePaymentFill } from 'react-icons/ri';
+import { FaHandsHelping } from 'react-icons/fa';
 
 const Header = () => {
 
@@ -24,11 +25,18 @@ const Header = () => {
           Blood-Donation
         </NavLink>
       </li>
+      <li className="hoversH">
+        <NavLink to="/help">
+          <FaHandsHelping />
+          Help
+        </NavLink>
+      </li>
       {user && (
         <li className="hoversH">
           <NavLink to="/dashboard/founding">
             <RiSecurePaymentFill />
-            Funding</NavLink>
+            Funding
+          </NavLink>
         </li>
       )}
     </>

@@ -23,6 +23,7 @@ import BloodDonationRequests from "../Page/Home/BloodDonationRequests";
 import DonationDetails from "../Page/Home/DonationDetails ";
 import WelcomePage from "../Page/Dashborad/WelComePage/WelcomePage";
 import ErrorPage from "../LodingAndErrorPage/ErrorPage";
+import Help from "../Page/FAQ/Help";
 
 
 
@@ -49,9 +50,13 @@ export const router = createBrowserRouter([
       },
       {
         path: 'blood-donation-details/:id',
-        element: <PrivetRouters>
-          <DonationDetails></DonationDetails>
-        </PrivetRouters>
+        element: <DonationDetails></DonationDetails>
+       
+      },
+      {
+        path: 'help',
+        element:<Help></Help>
+       
       },
       {
         path: 'login',

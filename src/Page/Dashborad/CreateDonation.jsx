@@ -37,7 +37,7 @@ const CreateDonation = () => {
       if (res?.data?.insertedId) {
         toast.success('successful');
         
-        reset()
+        // reset()
       }
       if (res?.data?.message) {
         toast.error(res.data.message);

@@ -36,7 +36,7 @@ const Highlight = () => {
       return data.data;
     },
   });
-console.log(fedBackData)
+
 // post FedBack
   const handleAddSay = (data) => {
     instance.post('/fedBack', data)
