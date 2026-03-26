@@ -24,6 +24,12 @@ import DonationDetails from "../Page/Home/DonationDetails ";
 import WelcomePage from "../Page/Dashborad/WelComePage/WelcomePage";
 import ErrorPage from "../LodingAndErrorPage/ErrorPage";
 import Help from "../Page/FAQ/Help";
+import AboutUs from "../Page/AboutUs";
+import Services from "../Page/Serviecs";
+import HowItWorks from "../Page/HowItWorks";
+import ContactUs from "../Page/Home/ContactUs";
+import PrivacyPolicy from "../Page/PrivacyPolicy";
+import Faqs from "../Page/Faqs";
 
 
 
@@ -32,7 +38,7 @@ export const router = createBrowserRouter([
   {
     path: '/',
     Component: Root,
-    errorElement:<ErrorPage></ErrorPage>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         index: true,
@@ -46,17 +52,14 @@ export const router = createBrowserRouter([
       {
         path: 'blood-donation',
         Component: BloodDonationRequests,
-        
       },
       {
         path: 'blood-donation-details/:id',
-        element: <DonationDetails></DonationDetails>
-       
+        element: <DonationDetails></DonationDetails>,
       },
       {
-        path: 'help',
-        element:<Help></Help>
-       
+        path: 'faq',
+        element: <Faqs></Faqs>,
       },
       {
         path: 'login',
@@ -67,6 +70,27 @@ export const router = createBrowserRouter([
         Component: Register,
         loader: () => fetch('/district.json'),
       },
+      {
+        path: 'about',
+        Component: AboutUs,
+      },
+      {
+        path: 'services',
+        Component: Services,
+      },
+      {
+        path: 'process',
+        Component: HowItWorks,
+      },
+      {
+        path: 'contact',
+        Component: ContactUs,
+      },
+      {
+        path: 'terms',
+        Component: PrivacyPolicy,
+      },
+      
     ],
   },
 
@@ -83,7 +107,7 @@ export const router = createBrowserRouter([
         index: 'dashboard',
         element: (
           <PrivetRouters>
-           <WelcomePage></WelcomePage>
+            <WelcomePage></WelcomePage>
           </PrivetRouters>
         ),
       },

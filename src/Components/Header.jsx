@@ -1,127 +1,198 @@
+
+
 import React from 'react';
-import { Link, NavLink } from 'react-router';
+
 import useAuth from '../Hook/useAuth';
 import { toast } from 'react-toastify';
-import { AiTwotoneHome } from 'react-icons/ai';
-import { MdBloodtype } from 'react-icons/md';
-import { RiSecurePaymentFill } from 'react-icons/ri';
-import { FaHandsHelping } from 'react-icons/fa';
+import { AiOutlineHome } from 'react-icons/ai';
+import {
+  MdOutlineBloodtype,
+  MdOutlineDashboardCustomize,
+} from 'react-icons/md';
+import { RiHandHeartLine, RiLogoutBoxRLine } from 'react-icons/ri';
+import { HiMenuAlt3 } from 'react-icons/hi';
+import { BiDonateHeart } from 'react-icons/bi';
+import { Link, NavLink } from 'react-router';
+import { FcAbout } from 'react-icons/fc';
+import { FcProcess } from 'react-icons/fc';
+import { MdConnectWithoutContact } from 'react-icons/md';
+import { IoHelpCircle } from 'react-icons/io5';
 
 const Header = () => {
-
   const { user, logOut } = useAuth();
-  
-  const navbare = (
+
+  const handleOut = () => {
+    logOut()
+      .then(() => toast.success('Logout Successful'))
+      .catch(err => toast.error(err.message));
+  };
+
+  const navItems = (
     <>
-      <li className="hoversH">
-        <NavLink to="/">
-          <AiTwotoneHome />
-          Home
+      <li>
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            `flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 ${isActive ? 'bg-red-500 text-white font-bold shadow-md' : 'text-gray-700 hover:bg-red-50 hover:text-red-500'}`
+          }
+        >
+          <AiOutlineHome className="text-xl" />
+          <span>Home</span>
         </NavLink>
       </li>
-      <li className="hoversH">
-        <NavLink to="/blood-donation">
-          <MdBloodtype />
-          Blood-Donation
+      <li>
+        <NavLink
+          to="/blood-donation"
+          className={({ isActive }) =>
+            `flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 ${isActive ? 'bg-red-500 text-white font-bold shadow-md' : 'text-gray-700 hover:bg-red-50 hover:text-red-500'}`
+          }
+        >
+          <MdOutlineBloodtype className="text-xl" />
+          <span>Donation</span>
         </NavLink>
       </li>
-      <li className="hoversH">
-        <NavLink to="/help">
-          <FaHandsHelping />
-          Help
+      <li>
+        <NavLink
+          to="/faq"
+          className={({ isActive }) =>
+            `flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 ${isActive ? 'bg-red-500 text-white font-bold shadow-md' : 'text-gray-700 hover:bg-red-50 hover:text-red-500'}`
+          }
+        >
+          <IoHelpCircle className="text-xl" />
+          
+          <span>FAQs</span>
         </NavLink>
       </li>
       {user && (
-        <li className="hoversH">
-          <NavLink to="/dashboard/founding">
-            <RiSecurePaymentFill />
-            Funding
+        <li>
+          <NavLink
+            to="/dashboard/founding"
+            className={({ isActive }) =>
+              `flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 ${isActive ? 'bg-red-500 text-white font-bold shadow-md' : 'text-gray-700 hover:bg-red-50 hover:text-red-500'}`
+            }
+          >
+            <BiDonateHeart className="text-xl" />
+            <span>Funding</span>
           </NavLink>
         </li>
       )}
+
+      <li>
+        <NavLink
+          to="/about"
+          className={({ isActive }) =>
+            `flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 ${isActive ? 'bg-red-500 text-white font-bold shadow-md' : 'text-gray-700 hover:bg-red-50 hover:text-red-500'}`
+          }
+        >
+          <FcAbout className=" text-xl" style={{ color: 'black' }} />
+          <span>About</span>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/process"
+          className={({ isActive }) =>
+            `flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 ${isActive ? 'bg-red-500 text-white font-bold shadow-md' : 'text-gray-700 hover:bg-red-50 hover:text-red-500'}`
+          }
+        >
+          <FcProcess className=" text-xl " style={{ color: 'black' }} />
+          <span>Process</span>
+        </NavLink>
+      </li>
     </>
   );
 
-  const handleOUt = () => {
-    logOut().then(res => {
-      toast.success('successful')
-    }).catch(err => {
-      toast.error(err.message)
-    })
-  }
   return (
-    <div className=" w-full  shadow-sm  bg-base-100">
-      <div className=" navbar md:max-w-[1300px] w-full mx-auto">
+    <div className="w-full bg-white sticky top-0 z-50 border-b-2 border-red-50">
+      <div className="navbar md:max-w-[1300px] w-full mx-auto px-4 py-3">
+        {/* Mobile Menu & Logo */}
         <div className="navbar-start">
           <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                {' '}
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />{' '}
-              </svg>
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost lg:hidden text-red-500 p-0 mr-2"
+            >
+              <HiMenuAlt3 className="text-3xl" />
             </div>
             <ul
-              tabIndex="-1"
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-3 shadow-2xl bg-white border border-red-100 rounded-2xl w-64 gap-2"
             >
-              {navbare}
+              {navItems}
             </ul>
           </div>
-          <img
-            src="https://i.ibb.co.com/9kq6CXHW/icons8-blood-donation-64-1.png"
-            className="lg:mr-4"
-            alt=""
-          ></img>
-          <div className=" hidden lg:flex">
-            <ul className="menu menu-horizontal px-1">{navbare}</ul>
-          </div>
+
+          <Link to="/" className="flex items-center gap-2 group">
+            <div className="bg-red-500 p-2 rounded-xl group-hover:rotate-12 transition-transform duration-300">
+              <MdOutlineBloodtype className="text-white text-2xl" />
+            </div>
+            <span className="font-black text-2xl tracking-tighter text-gray-800">
+              BLOOD<span className="text-red-500">LIFE</span>
+            </span>
+          </Link>
         </div>
 
+        {/* Desktop Menu */}
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal p-0 gap-2 font-medium">
+            {navItems}
+          </ul>
+        </div>
+
+        {/* User Profile / Login */}
         <div className="navbar-end">
           {user ? (
-            <div className="dropdown dropdown-end z-10 ">
-              <div>
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="ring-2 ring-red-500 ring-offset-2 rounded-full hover:scale-105 transition-transform"
+              >
                 <img
-                  src={user?.photoURL}
-                  alt=""
-                  tabIndex={0}
-                  className="w-[50px] h-[50px] object-cover rounded-full cursor-pointer"
+                  src={
+                    user?.photoURL ||
+                    'https://cdn-icons-png.flaticon.com/512/3135/3135715.png'
+                  }
+                  alt="Profile"
+                  className="w-10 h-10 object-cover rounded-full"
                 />
               </div>
               <ul
-                tabIndex="-1"
-                className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+                tabIndex={0}
+                className="dropdown-content menu p-4 shadow-2xl bg-white border border-red-100 rounded-2xl z-[1] w-60 mt-4 gap-3"
               >
-                <li className="mb-3">
-                  <NavLink className="btn " to="/dashboard">
-                    Dashboard
-                  </NavLink>
-                </li>
-
+                <div className="px-2 py-1 mb-1">
+                  <p className="text-xs text-gray-400">Welcome,</p>
+                  <p className="text-sm font-bold text-gray-800 truncate">
+                    {user?.displayName}
+                  </p>
+                </div>
                 <li>
                   <Link
-                    onClick={handleOUt}
-                    className="btn btn-success btn-outline"
+                    to="/dashboard"
+                    className="flex items-center gap-2 py-3 border border-red-500 text-red-500 hover:bg-red-500 hover:text-white font-bold rounded-xl transition-all"
                   >
-                    {' '}
-                    LogOut
+                    <MdOutlineDashboardCustomize className="text-xl" />
+                    Dashboard
                   </Link>
+                </li>
+                <li>
+                  <button
+                    onClick={handleOut}
+                    className="flex items-center justify-center gap-2 py-3 bg-red-500 text-white font-bold rounded-xl hover:bg-red-600 shadow-lg shadow-red-100 transition-all"
+                  >
+                    <RiLogoutBoxRLine className="text-xl" />
+                    Sign Out
+                  </button>
                 </li>
               </ul>
             </div>
           ) : (
-            <Link className="btn btn-success btn-outline" to="/login">
+            <Link
+              className="btn bg-red-500 hover:bg-red-600 text-white border-none px-8 rounded-xl font-bold shadow-lg shadow-red-100 transition-all active:scale-95"
+              to="/login"
+            >
               Login
             </Link>
           )}

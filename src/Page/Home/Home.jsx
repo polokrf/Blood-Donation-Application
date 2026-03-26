@@ -1,66 +1,64 @@
 import React, { Suspense } from 'react';
-import { Link } from 'react-router';
 import Banner from './Banner';
 import Feature from './Feature';
 import Loader from '../../LodingAndErrorPage/Loader';
 import Highlight from './Highlight';
 import Process from './Process';
-import OurTeam from './OurTeam';
 import OurService from './OurService';
-import OurMission from './OurMisson';
 import WhatWeDo from './WhatWeDo';
-import BecomeDonor from './BecomeDonor';
 import ContactUs from './ContactUs';
 
-
+// Data fetching outside to prevent re-renders
 const featureData = fetch('/Feature.json').then(res => res.json());
 
 const Home = () => {
   return (
-    <div>
-      <header className="mb-[25px] mx-auto  ">
-        <Banner></Banner>
+    <div className="bg-white min-h-screen overflow-hidden">
+      {/* 1. Hero Section */}
+      <header className="mb-10 lg:mb-20">
+        <Banner />
       </header>
-      <section className=" w-full mx-auto p-2">
-        <div className=" mb-[25px]">
-          <h1 className="text-center titles">Why Donating Blood Matters</h1>
-        </div>
-        <div>
-          <Suspense fallback={<Loader></Loader>}>
-            <Feature featureData={featureData}></Feature>
+
+      <main className="max-w-[1350px] mx-auto w-full px-4 space-y-24 md:space-y-32">
+        {/* 2. Feature Section (Why Donating Matters) */}
+        <section className="w-full">
+          <div className="text-center mb-12" data-aos="fade-up">
+            <h1 className="text-3xl md:text-4xl font-black text-gray-900 uppercase tracking-tighter">
+              Why Donating <span className="text-red-500">Blood Matters</span>
+            </h1>
+            <div className="w-24 h-1.5 bg-red-500 mx-auto mt-4 rounded-full"></div>
+          </div>
+
+          <Suspense fallback={<Loader />}>
+            <Feature featureData={featureData} />
           </Suspense>
-        </div>
-      </section>
+        </section>
 
-      <section>
-        <div className=" mb-[30px]">
-          <h1 className="text-center titles">Stories of Hope</h1>
-        </div>
+        {/* 3. Testimonials / Highlights */}
+        <section data-aos="fade-up">
+          <Highlight />
+        </section>
 
-        <Highlight></Highlight>
-      </section>
+        {/* 4. The Process Flow */}
+        <section data-aos="fade-right">
+          <Process />
+        </section>
 
-      <section>
-        <Process></Process>
-      </section>
-      <section>
-        <OurTeam></OurTeam>
-      </section>
-      <section>
-        <OurService></OurService>
-      </section>
-      <section>
-        <OurMission></OurMission>
-      </section>
-      <section>
-        <WhatWeDo></WhatWeDo>
-      </section>
-      <section>
-        <BecomeDonor></BecomeDonor>
-      </section>
-      <section>
-        <ContactUs></ContactUs>
-      </section>
+        {/* 5. Core Services */}
+        <section data-aos="fade-up">
+          <OurService />
+        </section>
+
+        {/* 6. Mission Statement (What We Do) */}
+        <section data-aos="zoom-in">
+          <WhatWeDo />
+        </section>
+
+        {/* 7. Final Contact Section */}
+        <section className="pb-20" data-aos="fade-up">
+          <ContactUs />
+        </section>
+      </main>
     </div>
   );
 };

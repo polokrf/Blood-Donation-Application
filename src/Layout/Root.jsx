@@ -55,7 +55,7 @@ const Root = () => {
       <div className="sticky top-0 z-10 ">
         <Header></Header>
       </div>
-      <div className="flex-1 md:max-w-[1300px] mx-auto w-full">
+      <div className="flex-1 ">
         <Outlet></Outlet>
       </div>
       <Footer></Footer>
