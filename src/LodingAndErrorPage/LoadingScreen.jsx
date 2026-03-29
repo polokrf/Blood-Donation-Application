@@ -57,7 +57,7 @@ const LoadingScreen = ({ onLoadingComplete }) => {
               Life<span className="text-red-600">Save</span>
             </h2>
             <p className="text-[10px] font-black text-slate-500 uppercase tracking-[0.4em] ml-1">
-              Preparing your dashboard
+              Preparing your HomePage
             </p>
           </div>
 
@@ -95,7 +95,7 @@ const LoadingScreen = ({ onLoadingComplete }) => {
       {/* Footer Branding */}
       <div className="absolute bottom-10 text-center">
         <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.5em]">
-          Secure Access System v2.0
+          System loading
         </p>
       </div>
     </div>
