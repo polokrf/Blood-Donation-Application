@@ -29,14 +29,14 @@ const Banner = () => {
       >
         {/* Slide 1 */}
         <SwiperSlide
-          className="bg-cover bg-no-repeat bg-center relative"
+          className="bg-cover bg-no-repeat bg-center relative "
           style={{ backgroundImage: `url(${bg1})` }}
         >
           {/* Solid White Tint Overlay */}
-          <div className="absolute inset-0 bg-white bg-opacity-30"></div>
+          {/* <div className="absolute inset-0 bg-white bg-opacity-30"></div> */}
 
           <div className="relative h-full flex flex-col justify-center items-center px-6">
-            <div className="bg-white p-8 md:p-16 rounded-[2rem] border-t-8 border-red-500 shadow-2xl max-w-3xl text-center">
+            <div className="bg-white  p-8 md:p-16 rounded-[2rem] border-t-8 border-red-500 shadow-2xl max-w-3xl text-center">
               <div data-aos="fade-down">
                 <h2 className="text-gray-900 text-3xl md:text-6xl font-black mb-4 tracking-tighter uppercase">
                   Donate Blood, <span className="text-red-500">Save Lives</span>
@@ -73,7 +73,7 @@ const Banner = () => {
           className="bg-cover bg-no-repeat bg-center relative"
           style={{ backgroundImage: `url(${bg2})` }}
         >
-          <div className="absolute inset-0 bg-white bg-opacity-30"></div>
+          {/* <div className="absolute inset-0 bg-white bg-opacity-30"></div> */}
 
           <div className="relative h-full flex flex-col justify-center items-center px-6">
             <div className="bg-white p-8 md:p-16 rounded-[2rem] border-t-8 border-red-500 shadow-2xl max-w-3xl text-center">

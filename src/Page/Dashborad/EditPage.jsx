@@ -1,243 +1,308 @@
+
 import React, { use } from 'react';
-import { useLoaderData, useLocation, useNavigate, useParams } from 'react-router';
+import {
+  useLoaderData,
+  useLocation,
+  useNavigate,
+  useParams,
+} from 'react-router';
 import useAuth from '../../Hook/useAuth';
 import useAxios from '../../Hook/useAxios';
 import { useForm, useWatch } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { useQuery } from '@tanstack/react-query';
+import { FaEdit, FaHospital, FaUser, FaMapMarkerAlt } from 'react-icons/fa';
+import Loader from '../../LodingAndErrorPage/Loader';
+import { IoArrowBackOutline } from 'react-icons/io5';
 
 const upazilaPromise = fetch('/upazaila.json').then(res => res.json());
 
 const EditPage = () => {
-  
-  const {id} =useParams()
-  const districtData = useLoaderData()
+  const { id } = useParams();
+  const districtData = useLoaderData();
   const upazilaData = use(upazilaPromise);
-
   const instance = useAxios();
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
   const location = useLocation();
-  
-  
- 
- 
-  const singleDistrictName = districtData.map(d => d.name);
-   const {
-     register,
-     handleSubmit,
-     control,
-    
-     
-  } = useForm();
-  
-  const district = useWatch({ control, name: 'recipient_district' });
-  
-  const findSingleDistrict = districtData.find(sD => sD.name === district);
 
-  const filterUpazila = upazilaData.filter(u => u.district_id === findSingleDistrict?.id);
+  const { register, handleSubmit, control, setValue } = useForm();
 
-  // donation request
-
-  const { data:edit={} } = useQuery({
+  // Data Fetching
+  const { data: edit = {}, isLoading } = useQuery({
     queryKey: ['edit', id],
     queryFn: async () => {
       const res = await instance.get(`/one-donationInfo/${id}`);
-      return res.data
-    }
-  })
- 
+     return res.data;
+    },
+  });
 
-  const handleDonation = (data) => {
-    instance.patch(`/update-data/${edit._id}`, data)
+  const singleDistrictName = districtData.map(d => d.name);
+  const district =
+    useWatch({ control, name: 'recipient_district' }) ||
+    edit?.recipient_district;
+  const findSingleDistrict = districtData.find(sD => sD.name === district);
+  const filterUpazila = upazilaData.filter(
+    u => u.district_id === findSingleDistrict?.id,
+  );
+
+  const handleDonation = data => {
+    instance
+      .patch(`/update-data/${edit._id}`, data)
       .then(res => {
-        
         if (res.data?.modifiedCount) {
-          toast.success('successful');
-          navigate(location.state);
-        } 
-         
-        
-    }).catch(err => {
+          toast.success('Information Updated Successfully');
+          navigate(location.state || '/dashboard');
+        }
+      })
+      .catch(err => {
         console.log(err);
       });
-  }
- 
-  return (
-    <div className='py-[60px] px-2'>
-      <div className='text-center my-10'>
-        <h1 className='titles  capitalize mb-2'>Edit Donation Request</h1>
-        <p className=''>
-          Update your blood donation request details and save changes by
-          clicking the Update button.
-        </p>
+  };
+
+  const handleClick = () => {
+    navigate(location.state || '/');
+  };
+
+  if (isLoading)
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+       <Loader></Loader>
       </div>
-      <div className="md:max-w-[580px] w-full mx-auto p-3 shadow-sm my-[60px] rounded-xl ">
-        <form
-          onSubmit={handleSubmit(handleDonation)}
-          className="fieldset bg-gray-100 p-3"
-        >
-          {/* Requester Name */}
-          <div className="formFil">
-            <div className="fieldset ">
-              <label className="label ">Requester Name</label>
-              <input
-                type="text"
-                className="input inputW"
-                defaultValue={edit?.requester_name}
-                readOnly
-                {...register('requester_name', { required: true })}
-                placeholder="Requester Name"
-              />
-            </div>
-            {/* requester email */}
-            <div className="fieldset ">
-              <label className="label">Requester Email</label>
-              <input
-                type="Email"
-                className="input inputW"
-                defaultValue={edit?.requester_email}
-                readOnly
-                {...register('requester_email', { required: true })}
-                placeholder="requester email"
-              />
+    );
+
+  return (
+    <div className=" bg-slate-50  ">
+      {/* Header */}
+      <div className="text-center max-w-2xl mx-auto mb-12">
+        <div className="inline-flex items-center justify-center w-16 h-16 bg-red-100 text-red-600 rounded-2xl mb-4">
+          <FaEdit size={28} />
+        </div>
+        <h1 className="text-4xl font-black uppercase tracking-tight text-slate-900 mb-3">
+          Edit <span className="text-red-600">Request</span>
+        </h1>
+        <p className="text-slate-500 font-medium mb-3">
+          Modify the details below to ensure donors have the most accurate
+          information for the blood request.
+        </p>
+
+         <button
+                  onClick={handleClick}
+                  className="cursor-pointer group mb-6 flex items-center gap-2 text-slate-500 hover:text-red-600 font-bold transition-colors"
+                >
+                  <IoArrowBackOutline className="group-hover:-translate-x-1 transition-transform" />
+                  Return to List
+                </button>
+      </div>
+
+      <div className="max-w-3xl mx-auto">
+        <div className="bg-white rounded-[2.5rem] shadow-2xl shadow-slate-200 border border-slate-100 overflow-hidden">
+          {/* Form Header Accent */}
+          <div className="bg-slate-900 px-10 py-4 flex justify-between items-center">
+            <span className="text-white text-xs font-black uppercase tracking-[0.2em]">
+              Request ID: {id.slice(-6)}
+            </span>
+            <div className="flex gap-2">
+              <div className="w-3 h-3 rounded-full bg-red-500"></div>
+              <div className="w-3 h-3 rounded-full bg-amber-500"></div>
+              <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
             </div>
           </div>
 
-          {/* recipient name*/}
-          <div className="fieldset ">
-            <label className="label">Recipient Name</label>
-            <input
-              type="text"
-              className="input inputW"
-              defaultValue={edit?.recipient_name}
-              {...register('recipient_name', { required: true })}
-              placeholder="Recipient Name"
-            />
-          </div>
+          <form
+            onSubmit={handleSubmit(handleDonation)}
+            className="p-8 md:p-12 space-y-10"
+          >
+            {/* Requester Section */}
+            <section className="space-y-6">
+              <div className="flex items-center gap-3 text-slate-400">
+                <FaUser size={14} />
+                <h3 className="text-xs font-black uppercase tracking-widest">
+                  Requester Information
+                </h3>
+                <div className="flex-1 h-[1px] bg-slate-100"></div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-slate-500 uppercase ml-1">
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    defaultValue={edit?.requester_name}
+                    readOnly
+                    className="w-full bg-slate-50 px-5 py-4 rounded-2xl border border-slate-200 text-slate-400 font-bold outline-none cursor-not-allowed"
+                    {...register('requester_name')}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-slate-500 uppercase ml-1">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    defaultValue={edit?.requester_email}
+                    readOnly
+                    className="w-full bg-slate-50 px-5 py-4 rounded-2xl border border-slate-200 text-slate-400 font-bold outline-none cursor-not-allowed"
+                    {...register('requester_email')}
+                  />
+                </div>
+              </div>
+            </section>
 
-          {/* recipient district*/}
-          <div className="formFil">
-            <div className="fieldset ">
-              <label className="label">Recipient District</label>
-              <select
-                defaultValue={edit.recipient_district}
-                {...register('recipient_district', { required: true })}
-                className="select w-full"
-              >
-                <option disabled={true}>Pick a district</option>
-                {singleDistrictName.map((d, i) => (
-                  <option key={i} value={d}>
-                    {d}
-                  </option>
-                ))}
-              </select>
-            </div>
-            {/* recipient upazila */}
-            <div className="fieldset ">
-              <label className="label">Recipient Upazila </label>
-              <select
-                defaultValue={edit?.recipient_upazila}
-                {...register('recipient_upazila', { required: true })}
-                className="select w-full"
-              >
-                <option disabled={true}>Pick a Upazila</option>
-                {filterUpazila.map(u => (
-                  <option key={u?.id} value={u.name}>
-                    {u.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
+            {/* Recipient Section */}
+            <section className="space-y-6">
+              <div className="flex items-center gap-3 text-slate-400">
+                <FaMapMarkerAlt size={14} />
+                <h3 className="text-xs font-black uppercase tracking-widest">
+                  Recipient & Location
+                </h3>
+                <div className="flex-1 h-[1px] bg-slate-100"></div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="md:col-span-2 space-y-2">
+                  <label className="text-xs font-bold text-slate-700 uppercase ml-1">
+                    Recipient Name
+                  </label>
+                  <input
+                    type="text"
+                    defaultValue={edit?.recipient_name}
+                    className="w-full px-5 py-4 rounded-2xl bg-white border-2 border-slate-100 focus:border-red-600 focus:ring-4 focus:ring-red-50 transition-all outline-none font-bold text-slate-800"
+                    {...register('recipient_name', { required: true })}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-slate-700 uppercase ml-1">
+                    District
+                  </label>
+                  <select
+                    defaultValue={edit?.recipient_district}
+                    className="w-full px-5 py-4 rounded-2xl bg-white border-2 border-slate-100 focus:border-red-600 outline-none font-bold text-slate-800 appearance-none"
+                    {...register('recipient_district', { required: true })}
+                  >
+                    <option disabled>Pick a district</option>
+                    {singleDistrictName.map((d, i) => (
+                      <option key={i} value={d}>
+                        {d}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-slate-700 uppercase ml-1">
+                    Upazila
+                  </label>
+                  <select
+                    defaultValue={edit?.recipient_upazila}
+                    className="w-full px-5 py-4 rounded-2xl bg-white border-2 border-slate-100 focus:border-red-600 outline-none font-bold text-slate-800 appearance-none"
+                    {...register('recipient_upazila', { required: true })}
+                  >
+                    <option disabled>Pick a Upazila</option>
+                    {filterUpazila.map(u => (
+                      <option key={u?.id} value={u.name}>
+                        {u.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </section>
 
-          {/* hospital name*/}
-          <div className="formFil">
-            <div className="fieldset ">
-              <label className="label">Hospital Name</label>
-              <input
-                type="text"
-                className="input inputW"
-                defaultValue={edit?.hospital_name}
-                {...register('hospital_name', { required: true })}
-                placeholder="Hospital Name"
-              />
-            </div>
-            {/* full address*/}
-            <div className="fieldset ">
-              <label className="label">Full Address</label>
-              <input
-                type="text"
-                className="input inputW"
-                defaultValue={edit.full_address}
-                {...register('full_address', { required: true })}
-                placeholder="Full Address"
-              />
-            </div>
-          </div>
+            {/* Logistics Section */}
+            <section className="space-y-6">
+              <div className="flex items-center gap-3 text-slate-400">
+                <FaHospital size={14} />
+                <h3 className="text-xs font-black uppercase tracking-widest">
+                  Medical Logistics
+                </h3>
+                <div className="flex-1 h-[1px] bg-slate-100"></div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-slate-700 uppercase ml-1">
+                    Hospital Name
+                  </label>
+                  <input
+                    type="text"
+                    defaultValue={edit?.hospital_name}
+                    className="w-full px-5 py-4 rounded-2xl bg-white border-2 border-slate-100 focus:border-red-600 outline-none font-bold text-slate-800"
+                    {...register('hospital_name', { required: true })}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-slate-700 uppercase ml-1">
+                    Blood Group
+                  </label>
+                  <select
+                    defaultValue={edit?.blood_group}
+                    className="w-full px-5 py-4 rounded-2xl bg-white border-2 border-slate-100 focus:border-red-600 font-black text-red-600 outline-none"
+                    {...register('blood_group', { required: true })}
+                  >
+                    {['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'].map(
+                      group => (
+                        <option key={group} value={group}>
+                          {group}
+                        </option>
+                      ),
+                    )}
+                  </select>
+                </div>
+                <div className="md:col-span-2 space-y-2">
+                  <label className="text-xs font-bold text-slate-700 uppercase ml-1">
+                    Full Address
+                  </label>
+                  <input
+                    type="text"
+                    defaultValue={edit?.full_address}
+                    className="w-full px-5 py-4 rounded-2xl bg-white border-2 border-slate-100 focus:border-red-600 outline-none font-bold text-slate-800"
+                    {...register('full_address', { required: true })}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-slate-700 uppercase ml-1">
+                    Donation Date
+                  </label>
+                  <input
+                    type="date"
+                    defaultValue={edit?.donation_date}
+                    className="w-full px-5 py-4 rounded-2xl bg-white border-2 border-slate-100 focus:border-red-600 outline-none font-bold text-slate-800"
+                    {...register('donation_date', { required: true })}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-slate-700 uppercase ml-1">
+                    Donation Time
+                  </label>
+                  <input
+                    type="time"
+                    defaultValue={edit?.donation_time}
+                    className="w-full px-5 py-4 rounded-2xl bg-white border-2 border-slate-100 focus:border-red-600 outline-none font-bold text-slate-800"
+                    {...register('donation_time', { required: true })}
+                  />
+                </div>
+              </div>
+            </section>
 
-          {/* blood group */}
-          <div className="fieldset ">
-            <label className="label">Blood Group</label>
-            <select
-              defaultValue={edit?.blood_group}
-              {...register('blood_group', { required: true })}
-              className="select w-full"
-            >
-              <option disabled={true}>Pick a Blood group</option>
-              <option value="A+">A+</option>
-              <option value="A-">A-</option>
-              <option value="B+">B+</option>
-              <option value="B-">B-</option>
-              <option value="AB+">AB+</option>
-              <option value="AB-">AB-</option>
-              <option value="O+">O+</option>
-              <option value="O-">O-</option>
-            </select>
-          </div>
-          {/* donation date */}
-          <div className="formFil">
-            <div className="fieldset ">
-              <label className="label">Donation Date</label>
-              <input
-                type="date"
-                defaultValue={edit?.donation_date}
-                {...register('donation_date', { required: true })}
-                className="input inputW"
-              />
+            {/* Message Area */}
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-slate-700 uppercase ml-1">
+                Urgency Message
+              </label>
+              <textarea
+                rows="4"
+                defaultValue={edit?.message}
+                className="w-full p-6 rounded-[2rem] bg-slate-50 border-2 border-transparent focus:border-red-600 focus:bg-white transition-all outline-none font-medium text-slate-800"
+                {...register('message', { required: true })}
+              ></textarea>
             </div>
-            {/* donation time*/}
-            <div className="fieldset ">
-              <label className="label">Donation Time</label>
-              <input
-                type="time"
-                defaultValue={edit?.donation_time}
-                {...register('donation_time', { required: true })}
-                className="input inputW"
-              />
+
+            {/* Action Button */}
+            <div className="pt-6">
+              <button className="w-full bg-red-600 hover:bg-slate-900 text-white font-black uppercase tracking-widest py-5 rounded-2xl shadow-xl shadow-red-200 transition-all active:scale-[0.98]">
+                Update Request
+              </button>
             </div>
-          </div>
-
-          {/* request message */}
-
-          <div>
-            <textarea
-              name=""
-              rows="5"
-              cols="4"
-              defaultValue={edit?.message}
-              {...register('message', { required: true })}
-              className="textarea w-full "
-              placeholder="request message"
-            ></textarea>
-          </div>
-
-          <div>
-            <button className="btn btn-secondary btn-outline w-full mt-4">
-              Update
-            </button>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   );

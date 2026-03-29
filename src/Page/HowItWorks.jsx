@@ -36,7 +36,7 @@ const HowItWorks = () => {
   ];
 
   return (
-    <div className="bg-white min-h-screen py-20 px-4 relative overflow-hidden">
+    <div className="bg-white  relative overflow-hidden">
       {/* Decorative Blood Drop Background */}
       <div className="absolute top-10 left-10 text-red-50 opacity-20 -z-10 animate-bounce">
         <FaDroplet className="text-[15rem]" />
@@ -48,7 +48,7 @@ const HowItWorks = () => {
           <span className="text-red-500 font-black uppercase tracking-[0.3em] text-xs">
             Simple 4-Step Process
           </span>
-          <h1 className="text-5xl md:text-7xl font-black text-gray-900 uppercase tracking-tighter">
+          <h1 className="text-4xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter">
             How It{' '}
             <span className="text-red-500 underline decoration-red-100 decoration-8 underline-offset-8">
               Works

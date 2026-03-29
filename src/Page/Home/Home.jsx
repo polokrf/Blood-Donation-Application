@@ -19,7 +19,7 @@ const Home = () => {
         <Banner />
       </header>
 
-      <main className="max-w-[1350px] mx-auto w-full px-4 space-y-24 md:space-y-32">
+      <main className="md:max-w-[1350px] mx-auto w-full  space-y-24 md:space-y-32">
         {/* 2. Feature Section (Why Donating Matters) */}
         <section className="w-full">
           <div className="text-center mb-12" data-aos="fade-up">
@@ -55,7 +55,7 @@ const Home = () => {
         </section>
 
         {/* 7. Final Contact Section */}
-        <section className="pb-20" data-aos="fade-up">
+        <section className="" data-aos="fade-up">
           <ContactUs />
         </section>
       </main>

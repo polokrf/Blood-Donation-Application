@@ -27,9 +27,10 @@ import Help from "../Page/FAQ/Help";
 import AboutUs from "../Page/AboutUs";
 import Services from "../Page/Serviecs";
 import HowItWorks from "../Page/HowItWorks";
-import ContactUs from "../Page/Home/ContactUs";
+
 import PrivacyPolicy from "../Page/PrivacyPolicy";
 import Faqs from "../Page/Faqs";
+import ContactUsPage from "../Page/ContactUsPage";
 
 
 
@@ -84,7 +85,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'contact',
-        Component: ContactUs,
+        Component: ContactUsPage,
       },
       {
         path: 'terms',

@@ -16,7 +16,7 @@ const PrivacyPolicy = () => {
   ];
 
   return (
-    <div className="bg-white min-h-screen py-20 px-4 relative overflow-hidden">
+    <div className="bg-white  relative overflow-hidden">
       {/* Background Decor */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-red-50 rounded-full blur-[120px] opacity-60"></div>
       <div className="absolute bottom-0 left-0 w-72 h-72 bg-red-50 rounded-full blur-[100px] opacity-40"></div>
@@ -24,11 +24,11 @@ const PrivacyPolicy = () => {
       <div className="max-w-[1200px] mx-auto">
         {/* 1. Header Section */}
         <div className="mb-20 space-y-6" data-aos="fade-right">
-          <div className="flex items-center gap-3 text-red-500 bg-red-50 w-fit px-6 py-2 rounded-full font-black text-xs uppercase tracking-widest border border-red-100 shadow-sm">
-            <FaFileShield className="text-lg" />
-            <span>Updated: March 2026</span>
+          <div className="flex items-center   gap-3 text-red-500 bg-red-50 w-fit px-6 py-2 rounded-full font-black text-xs uppercase tracking-widest border border-red-100 shadow-sm">
+            <FaFileShield className="text-lg inline-block" />
+            <span className=" inline-block">Updated: March 2026</span>
           </div>
-          <h1 className="text-5xl md:text-8xl font-black text-gray-900 uppercase tracking-tighter leading-none">
+          <h1 className="text-4xl  md:text-5xl font-black text-gray-900 uppercase tracking-tighter leading-none">
             Privacy <span className="text-red-500">Policy</span>
           </h1>
           <p className="text-gray-500 font-medium text-xl max-w-2xl leading-relaxed">

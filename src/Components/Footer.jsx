@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaGithub, FaLinkedin, FaFacebook, FaTwitter } from 'react-icons/fa';
-import { Link } from 'react-router'; 
+import { MdOutlineBloodtype } from 'react-icons/md';
+import { Link, NavLink } from 'react-router'; 
 
 const Footer = () => {
   return (
@@ -10,14 +11,12 @@ const Footer = () => {
           {/* 1. Logo & About Summary */}
           <div className="space-y-6">
             <div className="flex items-center gap-2">
-              <img
-                src="https://i.ibb.co.com/9kq6CXHW/icons8-blood-donation-64-1.png"
-                className="w-12 h-12"
-                alt="Logo"
-              />
-              <span className="text-2xl font-black text-gray-900 uppercase tracking-tighter">
-                Blood<span className="text-red-500">Flow</span>
-              </span>
+              <div className="bg-red-500 p-2 rounded-xl group-hover:rotate-12 transition-transform duration-300">
+                            <MdOutlineBloodtype className="text-white text-2xl" />
+                          </div>
+                          <span className="font-black text-2xl tracking-tighter text-gray-800">
+                            BLOOD<span className="text-red-500">LIFE</span>
+                          </span>
             </div>
             <p className="text-gray-500 font-medium leading-relaxed">
               Connecting life-savers with those in need. Join our community and
@@ -34,7 +33,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/about"
-                  className="text-gray-500 hover:text-red-500 font-bold transition-colors flex items-center gap-2 group"
+                  className="text-gray-500 hover:text-red-500 font-bold transition-colors flex items-center gap-2 group "
                 >
                   <span className="w-0 group-hover:w-2 h-0.5 bg-red-500 transition-all"></span>{' '}
                   About Us
@@ -86,6 +85,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
+                
                 <Link
                   to="/terms"
                   className="text-gray-500 hover:text-red-500 font-bold transition-colors flex items-center gap-2 group"

@@ -55,7 +55,7 @@ const Root = () => {
       <div className="sticky top-0 z-10 ">
         <Header></Header>
       </div>
-      <div className="flex-1 ">
+      <div className="flex-1 py-8 px-2 md:px-4 lg:py-10 ">
         <Outlet></Outlet>
       </div>
       <Footer></Footer>

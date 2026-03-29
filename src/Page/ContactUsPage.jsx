@@ -6,9 +6,9 @@ import {
   MdSupportAgent,
 } from 'react-icons/md';
 
-const ContactUs = () => {
+const ContactUsPage = () => {
   return (
-    <div className="bg-white min-h-screen py-20 px-4 relative overflow-hidden">
+    <div className="bg-white  relative overflow-hidden">
       {/* Background Animated Blobs (z-index na use kore relative position diyechi) */}
       <div className="absolute top-10 -right-20 w-80 h-80 bg-red-100 rounded-full blur-[120px] opacity-60 animate-pulse"></div>
       <div className="absolute bottom-10 -left-20 w-60 h-60 bg-red-50 rounded-full blur-[100px] opacity-40"></div>
@@ -20,11 +20,11 @@ const ContactUs = () => {
             <MdSupportAgent className="text-xl animate-bounce" />
             <span>Support Hub</span>
           </div>
-          <h1 className="text-5xl md:text-8xl font-black text-gray-900 uppercase tracking-tighter leading-none">
+          <h1 className="text-4xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter leading-none">
             Let’s Connect <br />
             <span className="text-red-500 relative inline-block">
               & Save Lives
-              <span className="absolute bottom-2 left-0 w-full h-4 bg-red-100 rounded-full animate-bounce delay-300"></span>
+              
             </span>
           </h1>
           <p className="text-gray-500 font-medium max-w-2xl mx-auto text-xl leading-relaxed pt-2">
@@ -178,4 +178,4 @@ const ContactUs = () => {
   );
 };
 
-export default ContactUs;
+export default ContactUsPage;

@@ -182,7 +182,7 @@ const Highlight = () => {
   };
 
   return (
-    <div className="my-20 relative px-4 overflow-hidden">
+    <div className="my-20 relative  overflow-hidden">
       {/* Dynamic Background Decorations */}
       <div className="absolute top-0 -left-10 w-40 h-40 bg-red-100 rounded-full blur-3xl opacity-50 animate-pulse"></div>
       <div className="absolute bottom-0 -right-10 w-60 h-60 bg-red-50 rounded-full blur-3xl opacity-60"></div>
@@ -201,7 +201,7 @@ const Highlight = () => {
 
           <button
             onClick={handleClick}
-            className="group relative flex items-center gap-3 px-8 py-4 bg-white border-2 border-red-500 text-red-500 font-black rounded-2xl hover:bg-red-500 hover:text-white transition-all duration-500 shadow-xl shadow-red-100 active:scale-95"
+            className="group cursor-pointer relative flex items-center gap-3 px-8 py-4 bg-white border-2 border-red-500 text-red-500 font-black rounded-2xl hover:bg-red-500 hover:text-white transition-all duration-500 shadow-xl shadow-red-100 active:scale-95"
           >
             <BiMessageAltDetail className="text-2xl animate-bounce" />
             <span className="uppercase tracking-widest">Share Experience</span>

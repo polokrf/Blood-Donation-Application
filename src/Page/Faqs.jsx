@@ -83,7 +83,7 @@ const Faqs = () => {
   };
 
   return (
-    <div className="bg-white min-h-screen py-20 px-4 relative overflow-hidden font-sans">
+    <div className="bg-white  relative overflow-hidden font-sans">
       {/* Background Decor - Red Tint */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-50 rounded-full blur-[120px] opacity-60"></div>
 
@@ -94,7 +94,7 @@ const Faqs = () => {
             <BiHelpCircle className="text-xl" />
             <span>Support Center</span>
           </div>
-          <h1 className="text-5xl md:text-8xl font-black text-gray-900 uppercase tracking-tighter leading-none">
+          <h1 className="text-4xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter leading-none">
             Common <span className="text-red-600">Questions</span>
           </h1>
           <p className="text-gray-500 font-medium text-xl max-w-xl mx-auto">

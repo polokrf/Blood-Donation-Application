@@ -96,7 +96,7 @@ const OurService = () => {
   ];
 
   return (
-    <div className="my-24 px-4 max-w-[1300px] mx-auto overflow-hidden">
+    <div className="my-24  max-w-[1300px] mx-auto overflow-hidden">
       {/* Section Title */}
       <div className="text-center mb-16 relative">
         <h1 className="text-3xl md:text-3xl font-black text-gray-900 tracking-tighter uppercase relative ">

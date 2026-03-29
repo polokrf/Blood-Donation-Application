@@ -4,17 +4,17 @@ import { FaHandHoldingHeart, FaPlusCircle } from 'react-icons/fa';
 
 const AboutUs = () => {
   return (
-    <div className="bg-white min-h-screen py-20 px-4 overflow-hidden">
-      <div className="max-w-[1300px] mx-auto space-y-24">
+    <div className="bg-white  overflow-hidden">
+      <div className="md:max-w-[1300px] w-full mx-auto space-y-24">
         {/* 1. Hero Section (Unique Design) */}
         <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6 relative z-10" data-aos="fade-right">
+          <div className="space-y-6 relative " data-aos="fade-right">
             <div className="inline-flex items-center gap-2 bg-red-50 px-4 py-2 rounded-full">
               <span className="text-red-500 font-black text-xs uppercase tracking-[0.2em]">
                 Our Story
               </span>
             </div>
-            <h1 className="text-5xl md:text-7xl font-black text-gray-900 uppercase tracking-tighter leading-none">
+            <h1 className="text-4xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter leading-none">
               Saving Lives <br />
               <span className="text-red-500">Together</span>
             </h1>

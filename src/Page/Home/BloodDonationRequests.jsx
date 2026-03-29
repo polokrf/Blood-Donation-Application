@@ -38,10 +38,10 @@ const BloodDonationRequests = () => {
   }
 
   return (
-    <div className="bg-white min-h-screen pb-20">
-      <div className="md:max-w-[1300px] w-full mx-auto px-4">
+    <div className="bg-white pb-20">
+      <div className="md:max-w-[1300px] w-full mx-auto ">
         {/* Modern Header */}
-        <div className="pt-20 pb-12 text-center space-y-4">
+        <div className=" pb-12 text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-4 py-1 bg-red-50 text-red-600 rounded-full text-xs font-black uppercase tracking-widest border border-red-100">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
@@ -49,7 +49,7 @@ const BloodDonationRequests = () => {
             </span>
             Live Requests
           </div>
-          <h1 className="text-4xl md:text-7xl font-black text-gray-900 uppercase tracking-tighter leading-none">
+          <h1 className="text-4xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter leading-none">
             Pending <span className="text-red-600">Requests</span>
           </h1>
           <p className="text-gray-500 font-medium text-lg max-w-xl mx-auto italic">

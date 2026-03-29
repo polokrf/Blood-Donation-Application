@@ -250,12 +250,12 @@ const DonationDetails = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white pb-20 pt-10 px-4">
+    <div className="min-h-screen bg-white pb-20 ">
       {/* Back Button */}
       <div className="max-w-[700px] mx-auto mb-6">
         <button
           onClick={handleClick}
-          className="flex items-center gap-2 font-black text-xs uppercase tracking-widest text-gray-400 hover:text-red-600 transition-colors"
+          className=" cursor-pointer flex items-center gap-2 font-black text-xs uppercase tracking-widest text-gray-400 hover:text-red-600 transition-colors"
         >
           <HiArrowLeft className="text-xl" /> Back to List
         </button>
@@ -267,7 +267,7 @@ const DonationDetails = () => {
           <div className="inline-flex items-center gap-2 px-4 py-1 bg-red-50 text-red-600 rounded-full text-[10px] font-black uppercase tracking-widest border border-red-100">
             Urgent Requirement
           </div>
-          <h1 className="text-3xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter leading-none">
+          <h1 className="text-4xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter leading-none">
             Request <span className="text-red-600">Details</span>
           </h1>
           <div className="w-20 h-1.5 bg-red-600 mx-auto rounded-full"></div>

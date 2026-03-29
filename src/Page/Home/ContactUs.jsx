@@ -15,7 +15,7 @@ const ContactUs = () => {
     e.target.reset()
   }
   return (
-    <div className="my-24 px-4 relative overflow-hidden">
+    <div className="  relative overflow-hidden">
       {/* Background Animated Blobs */}
       <div className="absolute top-20 -left-20 w-72 h-72 bg-red-100 rounded-full blur-[100px] opacity-40 animate-pulse"></div>
       <div className="absolute bottom-10 -right-20 w-80 h-80 bg-red-50 rounded-full blur-[120px] opacity-60"></div>
@@ -165,3 +165,4 @@ const ContactUs = () => {
 };
 
 export default ContactUs;
+

@@ -45,7 +45,7 @@ const Feature = ({ featureData }) => {
   const myData = use(featureData);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 my-16 px-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 my-16">
       {myData.map((data, i) => (
         <div
           key={i}

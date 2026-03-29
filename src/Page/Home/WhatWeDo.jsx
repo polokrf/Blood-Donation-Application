@@ -32,7 +32,7 @@ import { FaPlus } from 'react-icons/fa6';
 
 const WhatWeDo = () => {
   return (
-    <div className="my-20 px-4 group overflow-hidden">
+    <div className="my-20  group overflow-hidden">
       <div className="max-w-6xl mx-auto relative">
         {/* Decorative Background Elements */}
         <div className="absolute -top-10 -right-10 w-40 h-40 bg-red-50 rounded-full blur-3xl opacity-50 group-hover:bg-red-100 transition-colors duration-500"></div>

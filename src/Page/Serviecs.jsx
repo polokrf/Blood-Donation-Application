@@ -51,7 +51,7 @@ const Services = () => {
   ];
 
   return (
-    <div className="bg-white min-h-screen py-20 px-4 relative overflow-hidden">
+    <div className="bg-white relative overflow-hidden">
       {/* Background Decor */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-50 rounded-full blur-[120px] -z-10 opacity-60 animate-pulse"></div>
 
@@ -61,7 +61,7 @@ const Services = () => {
           <div className="inline-block px-6 py-2 bg-red-50 text-red-500 rounded-full font-black text-xs uppercase tracking-widest">
             What We Offer
           </div>
-          <h1 className="text-5xl md:text-7xl font-black text-gray-900 uppercase tracking-tighter">
+          <h1 className="text-4xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter">
             Our Life-Saving <span className="text-red-500">Services</span>
           </h1>
           <p className="text-gray-500 font-medium max-w-2xl mx-auto text-lg leading-relaxed">

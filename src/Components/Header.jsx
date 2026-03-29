@@ -147,7 +147,7 @@ const Header = () => {
               <div
                 tabIndex={0}
                 role="button"
-                className="ring-2 ring-red-500 ring-offset-2 rounded-full hover:scale-105 transition-transform"
+                className="cursor-pointer ring-2 ring-red-500 ring-offset-2 rounded-full hover:scale-105 transition-transform"
               >
                 <img
                   src={
@@ -155,7 +155,7 @@ const Header = () => {
                     'https://cdn-icons-png.flaticon.com/512/3135/3135715.png'
                   }
                   alt="Profile"
-                  className="w-10 h-10 object-cover rounded-full"
+                  className="w-10  h-10 object-cover rounded-full"
                 />
               </div>
               <ul
