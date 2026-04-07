@@ -1,14 +1,13 @@
 import React from 'react';
-import { BiHeartSquare, BiGroup, BiShieldAlt2 } from 'react-icons/bi';
-import { FaHandHoldingHeart, FaPlusCircle } from 'react-icons/fa';
+import { BiHeartSquare } from 'react-icons/bi';
 
 const AboutUs = () => {
   return (
-    <div className="bg-white  overflow-hidden">
+    <div className="bg-white overflow-hidden">
       <div className="md:max-w-[1300px] w-full mx-auto space-y-24">
-        {/* 1. Hero Section (Unique Design) */}
+        {/* 1. Hero Section */}
         <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6 relative " data-aos="fade-right">
+          <div className="space-y-6 relative" data-aos="fade-right">
             <div className="inline-flex items-center gap-2 bg-red-50 px-4 py-2 rounded-full">
               <span className="text-red-500 font-black text-xs uppercase tracking-[0.2em]">
                 Our Story
@@ -26,14 +25,12 @@ const AboutUs = () => {
           </div>
 
           <div className="relative" data-aos="fade-left">
-            {/* Unique Shape Background */}
             <div className="absolute -inset-4 bg-red-500 rounded-[3rem] rotate-3 -z-10 opacity-10"></div>
             <img
               src="https://images.unsplash.com/photo-1615461066841-6116ecaaba0a?auto=format&fit=crop&q=80&w=1000"
               alt="Blood Donation"
-              className="rounded-[3rem] shadow-2xl border-8 border-white group-hover:rotate-0 transition-transform duration-500"
+              className="rounded-[3rem] shadow-2xl border-8 border-white transition-transform duration-500"
             />
-            {/* Floating Badge */}
             <div className="absolute -bottom-10 -left-10 bg-white p-6 rounded-3xl shadow-xl flex items-center gap-4 border border-red-50 animate-bounce">
               <div className="w-12 h-12 bg-red-500 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg shadow-red-200">
                 <BiHeartSquare />
@@ -48,28 +45,59 @@ const AboutUs = () => {
           </div>
         </div>
 
-        {/* 2. Stats Section (Trust Builder) */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 py-16 border-y-2 border-red-50">
-          {[
-            { label: 'Active Donors', val: '5k+', icon: <BiGroup /> },
-            {
-              label: 'Successful Matches',
-              val: '12k+',
-              icon: <FaHandHoldingHeart />,
-            },
-            { label: 'Cities Covered', val: '50+', icon: <BiShieldAlt2 /> },
-            { label: 'Lives Saved', val: '100%', icon: <FaPlusCircle /> },
-          ].map((stat, i) => (
-            <div key={i} className="text-center space-y-2 group cursor-default">
-              <div className="text-red-500 text-3xl flex justify-center group-hover:scale-125 transition-transform">
-                {stat.icon}
-              </div>
-              <h3 className="text-3xl font-black text-gray-900">{stat.val}</h3>
-              <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">
-                {stat.label}
-              </p>
+        {/* 2. How It Works Section (replaces Stats) */}
+        <div className="py-16 border-y-2 border-red-50 space-y-12">
+          <div className="text-center">
+            <div className="inline-flex items-center gap-2 bg-red-50 px-4 py-2 rounded-full mb-4">
+              <span className="text-red-500 font-black text-xs uppercase tracking-[0.2em]">
+                How It Works
+              </span>
             </div>
-          ))}
+            <h2 className="text-4xl font-black text-gray-900 uppercase tracking-tighter">
+              Simple Steps to <span className="text-red-500">Save a Life</span>
+            </h2>
+            <div className="w-16 h-1 bg-red-500 mx-auto mt-4 rounded-full"></div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                step: '01',
+                title: 'Register',
+                desc: 'Sign up as a donor or recipient in just a few minutes with your basic details.',
+              },
+              {
+                step: '02',
+                title: 'Get Matched',
+                desc: 'Our system instantly connects recipients with nearby compatible donors.',
+              },
+              {
+                step: '03',
+                title: 'Donate',
+                desc: 'Visit the nearest donation point and give the gift of life safely and easily.',
+              },
+              {
+                step: '04',
+                title: 'Save a Life',
+                desc: "Your single donation can save up to three lives — be someone's hero today.",
+              },
+            ].map((item, i) => (
+              <div
+                key={i}
+                className="p-8 bg-red-50 rounded-[2rem] text-center hover:bg-red-500 transition-all duration-500 group cursor-default"
+              >
+                <div className="w-12 h-12 bg-red-500 group-hover:bg-white rounded-2xl flex items-center justify-center text-white group-hover:text-red-500 font-black text-sm mx-auto mb-5 transition-all duration-300 shadow-lg shadow-red-200 group-hover:shadow-none">
+                  {item.step}
+                </div>
+                <h3 className="text-lg font-black text-gray-900 group-hover:text-white uppercase tracking-tighter mb-3 transition-colors duration-300">
+                  {item.title}
+                </h3>
+                <p className="text-sm text-gray-500 group-hover:text-red-100 font-medium leading-relaxed transition-colors duration-500">
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* 3. Core Values Grid */}
@@ -118,7 +146,6 @@ const AboutUs = () => {
 
         {/* 4. Call to Action */}
         <div className="bg-red-500 p-12 md:p-20 rounded-[4rem] text-center text-white relative overflow-hidden shadow-2xl shadow-red-200">
-          {/* Decorative Circle */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-32 translate-x-32 blur-3xl"></div>
 
           <div className="relative z-10 space-y-8">

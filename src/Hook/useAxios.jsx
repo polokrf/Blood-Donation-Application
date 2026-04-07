@@ -24,7 +24,7 @@ const useAxios = () => {
       },
       error => {
         const errorStatus = error.response.status;
-        if (errorStatus === 401 && errorStatus === 403) {
+        if (errorStatus === 401 || errorStatus === 403) {
           return logOut()
             .then(res => {})
             .catch(err => {

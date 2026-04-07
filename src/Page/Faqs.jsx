@@ -9,18 +9,19 @@ import {
   BiDotsHorizontalRounded,
 } from 'react-icons/bi';
 import { FaDroplet, FaHeartPulse } from 'react-icons/fa6';
+import useAxios from '../Hook/useAxios';
 
 const Faqs = () => {
   const [activeIndex, setActiveIndex] = useState(null);
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const chatEndRef = useRef(null);
+  const axiosApi=useAxios()
 
   // Ager exact data
   const [messages, setMessages] = useState([
     {
-      text: 'Hello Rokcy! 👋 Blood donation niye kono proshno ache?',
+      text: 'Hello 👋 how can help you',
       isBot: true,
     },
   ]);
@@ -62,24 +63,28 @@ const Faqs = () => {
   };
 
   const handleSendMessage = e => {
-    e.preventDefault();
-    if (!inputValue.trim()) return;
+    
+    try {
+      setIsTyping(true);
+      e.preventDefault();
+      const prompt = e.target.prompt.value;
+      if (!prompt) {
+        return;
+      }
+      setMessages([...messages, { isBot: false, text: prompt }]);
+      axiosApi.post('/ai-ask', { prompt }).then(res => {
+        
+        setMessages(prev => [...prev, { isBot: true, text: res?.data?.text }]);
+        e.target.reset()
+      });
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsTyping(false)
+    }
+    
 
-    setMessages(prev => [...prev, { text: inputValue, isBot: false }]);
-    setInputValue('');
-    setIsTyping(true);
-
-    // Auto Answer Simulation
-    setTimeout(() => {
-      setIsTyping(false);
-      setMessages(prev => [
-        ...prev,
-        {
-          text: 'Dhonnobad! Amader team apnar proshno-ti peyeche. Khub shiggori amra reply dibo. Totokhon FAQ check korte paren.',
-          isBot: true,
-        },
-      ]);
-    }, 1500);
+    
   };
 
   return (
@@ -238,8 +243,8 @@ const Faqs = () => {
           >
             <input
               type="text"
-              value={inputValue}
-              onChange={e => setInputValue(e.target.value)}
+              name='prompt'
+              
               placeholder="Ask anything..."
               className="flex-1 bg-red-50/50 px-6 py-4 rounded-2xl outline-none font-bold text-gray-700 focus:bg-white border border-transparent transition-all shadow-inner"
             />
