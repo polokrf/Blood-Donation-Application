@@ -1,38 +1,33 @@
 🩸 Blood Donation Platform
+
 📌 Project Overview
+A user-friendly blood donation platform
+Connects donors with people in need
+Helps during emergency situations
+Encourages community-driven support
 
-Blood Donation Platform is a reliable and user-friendly web application designed to connect blood donors with people in need during emergencies.
-
-The system helps users:
-
-Find donors by blood group & location
-Create and manage blood donation requests
-Support blood-related organizations through financial contributions
-
-👉 The main goal is to save lives and build a community-driven support system.
+👉 Main goal: Save lives through easy donor access
 
 🌐 Live Website
-
 🔗 https://blood-donation.pages.dev
 
-🚀 Features
-🔍 Search donors by blood group & location
-📢 Create and manage blood donation requests
-🤝 Connect donors with recipients in real-time
-💰 Donation system for supporting organizations
-🔐 Authentication & protected routes
-📱 Fully responsive design
-🔔 Toast notifications & alert system
-⚡ Smooth animations using AOS
+🚀 Key Features
 
+🔍 Search donors by blood group & location
+📢 Create and manage blood requests
+🤝 Connect donors & recipients
+💰 Support organizations via donations
+🔐 Secure authentication system
+📱 Fully responsive UI
+🔔 Toast notifications & alerts
+⚡ Smooth animations (AOS)
 🛠️ Tech Stack
 
 🎨 Frontend
-
 React.js
 Tailwind CSS
 DaisyUI
-⚙️ State & Data Management
+⚙️ Data & State Management
 TanStack Query (React Query)
 Axios
 🧩 Libraries & Tools
@@ -42,36 +37,34 @@ React Toastify
 SweetAlert2
 AOS (Animate On Scroll)
 
-📸 Screenshots (Optional)
-
-
 📦 Installation & Setup
 # Clone the repository
-git clone https://github.com/your-username/blood-donation.git
+git clone https://github.com/polokrf/Blood-Donation-Application.git
 
 # Go to project folder
-cd blood-donation
+cd Blood-Donation-Application
 
 # Install dependencies
 npm install
 
 # Run the project
 npm run dev
+
 🔐 Environment Variables
-
-Create a .env file and add:
-
+Create a .env file
+Add the following:
 VITE_API_URL=your_backend_url
+
+
 🎯 Future Improvements
-💬 Real-time chat between donor & requester
-📍 Google Maps integration for location tracking
-🧠 Smart donor suggestion system
-📊 Admin dashboard for monitoring activities
+
+💬 Real-time chat system
+📍 Google Maps integration
+🧠 Smart donor suggestions
+📊 Admin dashboard
+
 🤝 Contribution
 
-Contributions are welcome!
-Feel free to fork this repo and submit a pull request.
-
-📧 Contact
-
-If you have any questions or suggestions, feel free to reach out.
+Fork the repository
+Create a new branch
+Submit a Pull Request
