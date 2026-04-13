@@ -53,10 +53,6 @@
 - AOS  
 
 ---
-## 🔗 Backend 
-- 🚀 Backend URL: https://blood-donation-server-rho.vercel.app  
-
----
 
 ## 📦 Installation & Setup
 
